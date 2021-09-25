@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileStandard : MonoBehaviour
 {
     [Header("Basic Characteristics")]                                             //Basic projectile characteristics.
+    public bool disableMovement = false;
     public float baseSpeed = 1;
 
     // Other projectile characteristics.

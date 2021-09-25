@@ -11,7 +11,7 @@ public class PlayerWeaponController : MonoBehaviour
     [Header("References")]
     [SerializeField] Transform firePoint;
     [SerializeField] TypeSystem typeSystem;
-    [SerializeField] List<GameObject> numberProjectiles;
+    [SerializeField] NumberHandler numberHandler;
 
     [Header("Events")]
     public UnityEvent firedWeapon;
@@ -19,11 +19,13 @@ public class PlayerWeaponController : MonoBehaviour
 
     // Other weapon attributes.
     int curTypeLimit;
+    List<GameObject> numberProjectiles;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        numberProjectiles = numberHandler.numberProjectiles;
         curTypeLimit = startTypeLimit;
     }
 
@@ -39,7 +41,11 @@ public class PlayerWeaponController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Read type sequence.
-            
+            string typeSequence = typeSystem.GetTypeSequence();
+            for (int index = 0; index < typeSequence.Length; index++)
+            {
+
+            }
 
             //Instantiate(numberProjectiles[0], position: firePoint.position, Quaternion.identity);
             Debug.Log("Fired weapon.");

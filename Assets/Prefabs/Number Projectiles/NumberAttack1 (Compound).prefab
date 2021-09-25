@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8222812462926824227}
   - component: {fileID: 8222812462926824226}
   m_Layer: 0
-  m_Name: NumberAttack7
+  m_Name: NumberAttack1 (Compound)
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 069d2757f7ac830449c410e31f7c2152, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ac487923bd5adf04ab389a7e620982ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c4b15c17af49e442b0096fdb8f6d5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableMovement: 0
+  disableMovement: 1
   baseSpeed: 2
   team: 0
 --- !u!50 &8222812462926824227
