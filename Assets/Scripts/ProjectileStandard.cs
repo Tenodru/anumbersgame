@@ -5,10 +5,18 @@ using UnityEngine;
 public class ProjectileStandard : MonoBehaviour
 {
     [Header("Basic Characteristics")]                                             //Basic projectile characteristics.
-    [SerializeField] float baseSpeed = 1;
+    public float baseSpeed = 1;
 
     // Other projectile characteristics.
     float currentSpeed;
+    Vector3 moveDirection;
+
+    public virtual void Start()
+    {
+        moveDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+        moveDirection.z = 0;
+        moveDirection.Normalize();
+    }
 
     /// <summary>
     /// Gets this projectile's base speed.
@@ -26,12 +34,22 @@ public class ProjectileStandard : MonoBehaviour
         return currentSpeed;
     }
 
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    /// <summary>
+    /// Gets this projectile's movement direction.
+    /// </summary>
+    public Vector3 GetMoveDirection()
     {
+        return moveDirection;
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log(this.name + " collided with " + collider.gameObject.name);
         // Destroy this projectile when it goes out of bounds.
-        if (collision.gameObject.tag == "Deathbox")
+        if (collider.gameObject.tag == "Deathbox")
         {
-            Destroy(this);
+            Debug.Log(this.name + " reached deathbox. Destroying now.");
+            Destroy(this.gameObject);
         }
     }
 }

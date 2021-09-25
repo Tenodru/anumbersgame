@@ -9,6 +9,12 @@ public class ProjectileNumber : ProjectileStandard
 
     // Other projectile characteristics.
 
+
+    public virtual void Update()
+    {
+        transform.position = transform.position + GetMoveDirection() * baseSpeed * Time.deltaTime;
+    }
+
     /// <summary>
     ///  Returns this projectile's Team.
     /// </summary>
@@ -18,18 +24,18 @@ public class ProjectileNumber : ProjectileStandard
     }
 
     // Extends base projectile collision check.
-    public override void OnCollisionEnter2D(Collision2D collision)
+    public override void OnTriggerEnter2D(Collider2D collider)
     {
-        base.OnCollisionEnter2D(collision);
+        base.OnTriggerEnter2D(collider);
 
         // This is a Player-fired projectile.
         if (team == Teams.Player)
         {
             // Projectile collides with another Attack projectile.
-            if (collision.gameObject.tag == "ProjectileAttack")
+            if (collider.gameObject.tag == "ProjectileAttack")
             {
                 // Collision object is an Enemy-fired projectile.
-                if (collision.gameObject.GetComponent<ProjectileNumber>().GetTeam() == Teams.Enemy)
+                if (collider.gameObject.GetComponent<ProjectileNumber>().GetTeam() == Teams.Enemy)
                 {
                     // Check that numbers match, etc.
                 }
