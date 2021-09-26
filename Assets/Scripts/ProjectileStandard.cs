@@ -5,6 +5,8 @@ using UnityEngine;
 public class ProjectileStandard : MonoBehaviour
 {
     [Header("Basic Characteristics")]                                             //Basic projectile characteristics.
+    [Tooltip("Which team this projectile belongs to.")] public Teams team;
+    [Tooltip("What projectile types this projectile is classified as.")] public List<ProjectileType> projectileTypes;
     public bool disableMovement = false;
     public float baseSpeed = 1;
 

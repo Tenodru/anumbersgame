@@ -52,11 +52,11 @@ public class PlayerWeaponController : MonoBehaviour
             {
                 GameObject compoundProj = Instantiate(numberHandler.compoundProjectile, position: firePoint.position, Quaternion.identity);
                 compoundProj.GetComponent<ProjectileCompoundNumber>().CreateCompoundNumber(typeSequence);
-                compoundProj.GetComponent<ProjectileCompoundNumber>().SetTeam(Teams.Player);
+                compoundProj.GetComponent<ProjectileCompoundNumber>().team = Teams.Player;
             }
             else {
                 GameObject newProj = Instantiate(numberProjectiles[int.Parse(typeSequence)], position: firePoint.position, Quaternion.identity);
-                newProj.GetComponent<ProjectileNumber>().SetTeam(Teams.Player);
+                newProj.GetComponent<ProjectileNumber>().team = Teams.Player;
             }
 
             Debug.Log("Fired weapon.");

@@ -89,6 +89,24 @@ public class EnemySwarmerBehavior : EnemyBehavior
             Debug.Log("Player took damage from " + this.gameObject.name);
             Destroy(this.gameObject);
         }
+
+        if (collider.gameObject.tag == "Projectile")
+        {
+            Debug.Log(this.gameObject.name + " hit by projectile!");
+            // Check to see if projectile is from player.
+            if (collider.GetComponent<ProjectileStandard>().team == Teams.Player)
+            {
+                // Check if projectile has a type that matches one of this enemy's weaknesses.
+                for (int i = 0; i < collider.GetComponent<ProjectileStandard>().projectileTypes.Count; i++)
+                {
+                    if (projectileWeaknesses.Contains(collider.GetComponent<ProjectileStandard>().projectileTypes[i]))
+                    {
+                        Debug.Log(this.gameObject.name + " successfully destroyed by player projectile!");
+                        Destroy(this.gameObject);
+                    }
+                }
+            }
+        }
     }
 
     /*

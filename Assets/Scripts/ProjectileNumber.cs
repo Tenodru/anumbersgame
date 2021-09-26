@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ProjectileNumber : ProjectileStandard
 {
-    [Header("Number Projectile Characteristics")]                                             //Number projectile characteristics.
-    [SerializeField] Teams team;
 
     // Other projectile characteristics.
 
@@ -13,23 +11,6 @@ public class ProjectileNumber : ProjectileStandard
     public virtual void Update()
     {
         transform.position = transform.position + GetMoveDirection() * baseSpeed * Time.deltaTime;
-    }
-
-    /// <summary>
-    ///  Returns this projectile's Team.
-    /// </summary>
-    public virtual Teams GetTeam()
-    {
-        return team;
-    }
-
-    /// <summary>
-    /// Sets this projectile's team.
-    /// </summary>
-    /// <param name="newTeam"></param>
-    public virtual void SetTeam(Teams newTeam)
-    {
-        team = newTeam;
     }
 
     // Extends base projectile collision check.
@@ -44,7 +25,7 @@ public class ProjectileNumber : ProjectileStandard
             if (collider.gameObject.tag == "ProjectileAttack")
             {
                 // Collision object is an Enemy-fired projectile.
-                if (collider.gameObject.GetComponent<ProjectileNumber>().GetTeam() == Teams.Enemy)
+                if (collider.gameObject.GetComponent<ProjectileNumber>().team == Teams.Enemy)
                 {
                     // Check that numbers match, etc.
                 }

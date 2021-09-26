@@ -744,6 +744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charVelocity: 2
   damage: 1
+  projectileWeaknesses: 0000000001000000
   radius: 10
   angle: 0
 --- !u!212 &1021019384
