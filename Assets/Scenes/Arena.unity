@@ -1558,7 +1558,7 @@ MonoBehaviour:
   difficulty: 1
   spawnBudgetCap: 20
   exampleDifficulty: 1
-  exampleTime: 1
+  exampleTime: 100
   exampleWave: 1
 --- !u!1001 &2876026830631120695
 PrefabInstance:
