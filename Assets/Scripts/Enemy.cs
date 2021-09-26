@@ -10,6 +10,6 @@ public class Enemy : ScriptableObject
     [Tooltip("This enemy's prefab.")] public GameObject enemyChar;
 
     [Header("Enemy Spawn Attributes")]
-    [Tooltip("The tier this enemy can begin to spawn in.")] public float enemySpawnTier;
-    [Tooltip("The cost for the spawn manager to spawn this enemy.")] public float enemySpawnCost;
+    [Tooltip("The tier this enemy can begin to spawn in.")] public int enemySpawnTier;
+    [Tooltip("The cost for the spawn manager to spawn this enemy.")] public int enemySpawnCost;
 }

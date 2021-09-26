@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Base class for enemy behavior.
@@ -11,6 +12,9 @@ public class EnemyBehavior : MonoBehaviour
     public float charVelocity = 2f;
     [Tooltip("The damage this enemy will do to player health.")] public float damage = 1.0f;
     [Tooltip("List of projectiles that can damage this enemy.")] public List<ProjectileType> projectileWeaknesses;
+
+    [Header("Events")]
+    public UnityEvent enemyKilled;
 
     GameObject player;
 

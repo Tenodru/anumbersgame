@@ -8,8 +8,8 @@ using UnityEngine;
 public class EnemySwarmerBehavior : EnemyBehavior
 {
     [Header("Movement Attributes")]
-    [Tooltip("The starting orbit radius.")] [SerializeField] float radius = 10;
-    [Tooltip("The starting orbit angle.")] [SerializeField] float angle = 0;
+    [Tooltip("The starting orbit radius.")] public float radius = 10;
+    [Tooltip("The starting orbit angle.")] public float angle = 0;
 
     float scaler = 1;
     float invokeTimeRadius = 0.1f;
@@ -17,9 +17,12 @@ public class EnemySwarmerBehavior : EnemyBehavior
 
     float alpha = 1.0f;
 
+    SpawnManager spawnManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        spawnManager = FindObjectOfType<SpawnManager>();
         StartCoroutine(DecreaseRadius(invokeTimeRadius));
         StartCoroutine(IncreaseScaler(invokeTimeScaler));
     }
@@ -87,6 +90,8 @@ public class EnemySwarmerBehavior : EnemyBehavior
         {
             // Decrease player health by this enemy's damage stat.
             Debug.Log("Player took damage from " + this.gameObject.name);
+            enemyKilled.Invoke();
+            spawnManager.UpdateEnemyCount(-1);
             Destroy(this.gameObject);
         }
 
@@ -102,6 +107,8 @@ public class EnemySwarmerBehavior : EnemyBehavior
                     if (projectileWeaknesses.Contains(collider.GetComponent<ProjectileStandard>().projectileTypes[i]))
                     {
                         Debug.Log(this.gameObject.name + " successfully destroyed by player projectile!");
+                        enemyKilled.Invoke();
+                        spawnManager.UpdateEnemyCount(-1);
                         Destroy(this.gameObject);
                     }
                 }

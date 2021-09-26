@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1bf490890809a034e8d395f76cd1f45d, type: 3}
-  m_Name: Enemy1
+  m_Name: 1 Swarmer
   m_EditorClassIdentifier: 
   enemyName: 1 Swarmer
-  enemyChar: {fileID: 0}
-  enemySpawnTier: 0
-  enemySpawnCost: 0
+  enemyChar: {fileID: 2876026830435462081, guid: 5629c5ec2047c9843aedb6b7f11acb39, type: 3}
+  enemySpawnTier: 1
+  enemySpawnCost: 1

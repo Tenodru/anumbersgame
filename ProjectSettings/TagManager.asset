@@ -9,6 +9,7 @@ TagManager:
   - TypeSystem
   - NumberHandler
   - SpawnArea
+  - Enemy
   layers:
   - Default
   - TransparentFX

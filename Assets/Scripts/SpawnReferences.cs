@@ -5,10 +5,9 @@ using UnityEngine;
 public class SpawnReferences : MonoBehaviour
 {
     [Header("Enemies")]                                             //References to enemy assets to be spawned and their spawn costs.
-    [SerializeField] Enemy enemy1;
-    [SerializeField] Enemy enemy2;
-    [SerializeField] Enemy enemy3;
-    [SerializeField] Enemy enemy4;
-
+    public Enemy enemy1;
+    public Enemy enemy2;
+    public Enemy enemy3;
+    public Enemy enemy4;
 
 }

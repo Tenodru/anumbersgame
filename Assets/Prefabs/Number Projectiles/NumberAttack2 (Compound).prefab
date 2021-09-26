@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 0
-  projectileTypes: 02000000
+  projectileTypes: 03000000
   disableMovement: 1
   baseSpeed: 2
 --- !u!50 &8222812462926824227
