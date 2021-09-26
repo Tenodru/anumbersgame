@@ -23,6 +23,15 @@ public class ProjectileNumber : ProjectileStandard
         return team;
     }
 
+    /// <summary>
+    /// Sets this projectile's team.
+    /// </summary>
+    /// <param name="newTeam"></param>
+    public virtual void SetTeam(Teams newTeam)
+    {
+        team = newTeam;
+    }
+
     // Extends base projectile collision check.
     public override void OnTriggerEnter2D(Collider2D collider)
     {

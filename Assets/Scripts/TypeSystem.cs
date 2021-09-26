@@ -37,18 +37,70 @@ public class TypeSystem : MonoBehaviour
                 typeSequence += "0";
                 textDisplay.text = "[ " + typeSequence + " ]";
                 typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
             }
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 typeSequence += "1";
                 textDisplay.text = "[ " + typeSequence + " ]";
                 typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 typeSequence += "2";
                 textDisplay.text = "[ " + typeSequence + " ]";
                 typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                typeSequence += "3";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                typeSequence += "4";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                typeSequence += "5";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                typeSequence += "6";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                typeSequence += "7";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                typeSequence += "8";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                typeSequence += "9";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
             }
         }
     }
@@ -60,6 +112,7 @@ public class TypeSystem : MonoBehaviour
     {
         typeCount = 0;
         typeSequence = "";
+        textDisplay.text = "[ " + typeSequence + " ]";
     }
 
     /// <summary>
