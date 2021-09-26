@@ -8,6 +8,7 @@ TagManager:
   - Deathbox
   - TypeSystem
   - NumberHandler
+  - SpawnArea
   layers:
   - Default
   - TransparentFX
