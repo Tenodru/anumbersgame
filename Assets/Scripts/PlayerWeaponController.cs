@@ -53,10 +53,12 @@ public class PlayerWeaponController : MonoBehaviour
                 GameObject compoundProj = Instantiate(numberHandler.compoundProjectile, position: firePoint.position, Quaternion.identity);
                 compoundProj.GetComponent<ProjectileCompoundNumber>().CreateCompoundNumber(typeSequence);
                 compoundProj.GetComponent<ProjectileCompoundNumber>().team = Teams.Player;
+                compoundProj.GetComponent<ProjectileCompoundNumber>().baseSpeed = 4;
             }
             else {
                 GameObject newProj = Instantiate(numberProjectiles[int.Parse(typeSequence)], position: firePoint.position, Quaternion.identity);
                 newProj.GetComponent<ProjectileNumber>().team = Teams.Player;
+                newProj.GetComponent<ProjectileNumber>().baseSpeed = 4;
             }
 
             Debug.Log("Fired weapon.");

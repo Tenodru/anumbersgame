@@ -10,4 +10,17 @@ public class SpawnReferences : MonoBehaviour
     public Enemy enemy3;
     public Enemy enemy4;
 
+    public List<Enemy> enemies;
+
+    public int[] GetTierCount ()
+    {
+        int[] counts = new int[4];
+
+        foreach (Enemy enemy in enemies)
+        {
+            counts[enemy.enemySpawnTier - 1] += 1;
+        }
+
+        return counts;
+    }
 }

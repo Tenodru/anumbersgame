@@ -34,18 +34,20 @@ public class SpawnManager : MonoBehaviour
     [Range(1, 4)] [SerializeField] int exampleDifficulty = 1;
     [SerializeField] float exampleTime = 1;
     [SerializeField] int exampleWave = 1;
-    int exampleTimeSpawnScale;
+    int exampleTimeSpawnScale = 1;
     int exampleSpawnTier;
 
     SpawnReferences spawnReferences;
 
+    // Additional spawn variables.
     float nextSpawnTime = 0.0f;
     int enemiesKilled = 0;
     int currentEnemyCount = 0;
     int wave = 1;
-    int spawnTier = 1;
-    int timeSpawnScale;
+    [Tooltip("The current spawn tier.")] int spawnTier = 1;
+    int timeSpawnScale = 1;
     int currentTime;
+    [Tooltip("Game time is divided by this to determine spawn tier.")] int timeDivisor = 120;
 
     int spawnBudget = 0;
     int spawnBudgetThisWave = 0;
@@ -60,11 +62,11 @@ public class SpawnManager : MonoBehaviour
     {
         currentTime = (int)Time.time;
 
-        if ((int)(Time.time / 30) <= 0)
+        if ((int)(Time.time / timeDivisor) <= 1)
             spawnTier = 1;
-        else if ((int)(Time.time / 30) >= 5)
+        else if ((int)(Time.time / timeDivisor) >= 5)
             spawnTier = 5;
-        else spawnTier = (int)(Time.time / 30) + 1;
+        else spawnTier = (int)(Time.time / timeDivisor) + 1;
 
         if (spawnTier == 2)
         {
@@ -107,12 +109,19 @@ public class SpawnManager : MonoBehaviour
 
             if (spawnAreaChance <= 0.25f)
             {
+                float spawnEnemyChance = Random.Range(0, 1.0f);
+
                 Vector3 randPoint = new Vector3(Random.Range(upperSpawnPoint.position.x - spawnAreaLengthUL, upperSpawnPoint.position.x + spawnAreaLengthUL), Random.Range(upperSpawnPoint.position.y - spawnAreaHeightUL, upperSpawnPoint.position.y + spawnAreaHeightUL), upperSpawnPoint.position.z);
                 
+                // Write an algorithm that pseudorandomly selects which enemy to spawn based on a "Spawn Chance" param
+                // Calculate "Spawn Chance" based on spawn cost and spawn tier.
+
+                // Code goes here
+
                 // Spawn enemy1.
                 GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
                 newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(8, 12);
+                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
 
                 currentEnemyCount += 1;
                 spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
@@ -124,7 +133,7 @@ public class SpawnManager : MonoBehaviour
                 // Spawn enemy1.
                 GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
                 newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(8, 12);
+                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
 
                 currentEnemyCount += 1;
                 spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
@@ -136,7 +145,7 @@ public class SpawnManager : MonoBehaviour
                 // Spawn enemy1.
                 GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
                 newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(8, 12);
+                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
 
                 currentEnemyCount += 1;
                 spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
@@ -148,11 +157,26 @@ public class SpawnManager : MonoBehaviour
                 // Spawn enemy1.
                 GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
                 newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(8, 12);
+                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
 
                 currentEnemyCount += 1;
                 spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
             }
+        }
+    }
+
+    public void CalcSpawnChances()
+    {
+        // Calculate base spawn chance using spawn tier.
+        foreach (Enemy enemy in spawnReferences.enemies)
+        {
+            enemy.GetBaseSpawnChance(spawnTier);
+        }
+
+        // Calculate final spawn chance (divide base spawn chance by number of enemies in current tier).
+        foreach (Enemy enemy in spawnReferences.enemies)
+        {
+            enemy.GetBaseSpawnChance(spawnTier);
         }
     }
 
