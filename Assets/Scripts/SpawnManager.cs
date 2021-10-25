@@ -107,16 +107,19 @@ public class SpawnManager : MonoBehaviour
         {
             float spawnAreaChance = Random.Range(0, 1.0f);
 
+            // Calculate spawn chances for all enemies first.
+            CalcSpawnChances();
+
             if (spawnAreaChance <= 0.25f)
             {
-                float spawnEnemyChance = Random.Range(0, 1.0f);
+                float spawnChance = Random.Range(0, 1.0f);
 
                 Vector3 randPoint = new Vector3(Random.Range(upperSpawnPoint.position.x - spawnAreaLengthUL, upperSpawnPoint.position.x + spawnAreaLengthUL), Random.Range(upperSpawnPoint.position.y - spawnAreaHeightUL, upperSpawnPoint.position.y + spawnAreaHeightUL), upperSpawnPoint.position.z);
                 
                 // Write an algorithm that pseudorandomly selects which enemy to spawn based on a "Spawn Chance" param
                 // Calculate "Spawn Chance" based on spawn cost and spawn tier.
 
-                // Code goes here
+                
 
                 // Spawn enemy1.
                 GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
@@ -165,18 +168,15 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculates spawn chances for each enemy based on current spawn tier.
+    /// </summary>
     public void CalcSpawnChances()
     {
-        // Calculate base spawn chance using spawn tier.
-        foreach (Enemy enemy in spawnReferences.enemies)
+        // Calculate enemy spawn chances.
+        foreach (SpawnEntry entry in spawnReferences.enemies)
         {
-            enemy.GetBaseSpawnChance(spawnTier);
-        }
-
-        // Calculate final spawn chance (divide base spawn chance by number of enemies in current tier).
-        foreach (Enemy enemy in spawnReferences.enemies)
-        {
-            enemy.GetBaseSpawnChance(spawnTier);
+            entry.enemy.CalculateSpawnChances(spawnTier, spawnReferences.GetTierCount());
         }
     }
 

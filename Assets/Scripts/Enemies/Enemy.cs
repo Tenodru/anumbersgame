@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Framework object for an Enemy.
+/// Includes enemy name, prefab, spawn tier, spawn cost, and XP reward.
+/// </summary>
 [CreateAssetMenu(fileName = "Enemy", menuName = "ScriptableObjects/Enemy Spawn Object", order = 1)]
 public class Enemy : ScriptableObject
 {
@@ -18,13 +22,24 @@ public class Enemy : ScriptableObject
     float baseChance = 0f;
     float finalChance = 0f;
 
-    public float GetBaseSpawnChance(int curSpawnTier)
+    /// <summary>
+    /// Calculates base spawn chance and final sapwn chance.
+    /// Base spawn chance is decided by current spawn tier and this enemy's spawn tier.
+    /// Final spawn chance of this enemy is decided by dividing base spawn chance by all available enemies in this tier.
+    /// </summary>
+    /// <param name="curSpawnTier"></param>
+    /// <param name="counts"></param>
+    public void CalculateSpawnChances(int curSpawnTier, int[] counts)
     {
-        float baseChance = 0f;
+        CalcBaseSpawnChance(curSpawnTier);
+        CalcFinalSpawnChance(counts);
+    }
 
+    public void CalcBaseSpawnChance(int curSpawnTier)
+    {
         // Return spawn chance of 0 if enemy is in higher tier.
         if (enemySpawnTier > curSpawnTier)
-            return baseChance;
+            baseChance = 0f;
 
         if (curSpawnTier == 1)
         {
@@ -57,14 +72,28 @@ public class Enemy : ScriptableObject
             if (enemySpawnTier == 4)
                 baseChance = 0.075f;
         }
+    }
 
+    public void CalcFinalSpawnChance(int[] counts)
+    {
+        finalChance = baseChance / counts[enemySpawnTier - 1];
+    }
+
+    /// <summary>
+    /// Returns this enemy's base spawn chance.
+    /// </summary>
+    /// <returns>float | base spawn chance</returns>
+    public float GetBaseSpawnChance()
+    {
         return baseChance;
     }
 
-    public float GetFinalSpawnChance(int[] counts)
+    /// <summary>
+    /// Returns this enemy's final spawn chance.
+    /// </summary>
+    /// <returns>float | final spawn chance</returns>
+    public float GetFinalSpawnChance()
     {
-        float finalChance = 0f;
-
         return finalChance;
     }
 

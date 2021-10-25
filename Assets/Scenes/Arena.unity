@@ -759,8 +759,18 @@ MonoBehaviour:
   enemy3: {fileID: 0}
   enemy4: {fileID: 0}
   enemies:
-  - {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
-  - {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
+  - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
+    available: 0
+  - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
+    available: 0
+  spawnTiers:
+  - categories:
+    - enemies:
+      - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
+        available: 1
+      - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
+        available: 1
+      spawnChance: 0.33
 --- !u!1 &1039743000
 GameObject:
   m_ObjectHideFlags: 0
