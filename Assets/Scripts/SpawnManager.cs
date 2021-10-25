@@ -28,6 +28,9 @@ public class SpawnManager : MonoBehaviour
     [Range(1, 4)] [SerializeField] int difficulty = 1;
     [Tooltip("How high the spawn budget can go before being capped.")]
     [SerializeField] int spawnBudgetCap = 20;
+    [Tooltip("Game time is divided by this to determine spawn tier. In other words, spawn tier will increase every [timeDivisor] seconds.")]
+    [SerializeField] int timeDivisor = 30;
+
 
     [Header("Wave Calculator")]                                     //A calculator that displays how many enemies will be spawned in each wave.
     [Space(20)]
@@ -36,6 +39,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] int exampleWave = 1;
     int exampleTimeSpawnScale = 1;
     int exampleSpawnTier;
+    int exampleSpawnBudget;
 
     SpawnReferences spawnReferences;
 
@@ -47,7 +51,6 @@ public class SpawnManager : MonoBehaviour
     [Tooltip("The current spawn tier.")] int spawnTier = 1;
     int timeSpawnScale = 1;
     int currentTime;
-    [Tooltip("Game time is divided by this to determine spawn tier.")] int timeDivisor = 120;
 
     int spawnBudget = 0;
     int spawnBudgetThisWave = 0;
@@ -62,32 +65,22 @@ public class SpawnManager : MonoBehaviour
     {
         currentTime = (int)Time.time;
 
-        if ((int)(Time.time / timeDivisor) <= 1)
+        if ((int)(Time.time / timeDivisor) < 1)
             spawnTier = 1;
         else if ((int)(Time.time / timeDivisor) >= 5)
             spawnTier = 5;
         else spawnTier = (int)(Time.time / timeDivisor) + 1;
 
-        if (spawnTier == 2)
-        {
-            //enemy1SpawnChance = 0.3f;
-            //enemy2SpawnChance = 0.65f;
-        }
-        if (spawnTier >= 3)
-        {
-            //enemy1SpawnChance = 0.4f;
-            //enemy2SpawnChance = 0.55f;
-        }
-
+        // Refill the spawn budget whenever the current enemy count reaches or drops below difficulty * 2, then spawn the next wave of enemies.
         if (currentEnemyCount <= difficulty * 2)
         {
             timeSpawnScale = (int)(Time.time / 10);
 
-            if ((int)(((int)(Mathf.Sqrt(wave)) / 2) * difficulty * timeSpawnScale) < 5)
+            if ((int)(((Mathf.Sqrt(wave)) / 2) * difficulty * timeSpawnScale) < 5)
                 spawnBudget = 5;
-            else if ((int)(((int)(Mathf.Sqrt(wave)) / 2) * difficulty * timeSpawnScale) >= 20)
-                spawnBudget = 20;
-            else spawnBudget = (int)(((int)(Mathf.Sqrt(wave)) / 2) * difficulty * timeSpawnScale);
+            else if ((int)(((Mathf.Sqrt(wave)) / 2) * difficulty * timeSpawnScale) >= 20)
+                spawnBudget = spawnBudgetCap;
+            else spawnBudget = (int)(((Mathf.Sqrt(wave)) / 2) * difficulty * timeSpawnScale);
 
             spawnBudgetThisWave = spawnBudget;
             wave += 1;
@@ -110,6 +103,9 @@ public class SpawnManager : MonoBehaviour
             // Calculate spawn chances for all enemies first.
             CalcSpawnChances();
 
+            // Get available enemies from SpawnReferences.
+            List<SpawnTier> tierList = spawnReferences.spawnTiers;
+
             if (spawnAreaChance <= 0.25f)
             {
                 float spawnChance = Random.Range(0, 1.0f);
@@ -118,8 +114,18 @@ public class SpawnManager : MonoBehaviour
                 
                 // Write an algorithm that pseudorandomly selects which enemy to spawn based on a "Spawn Chance" param
                 // Calculate "Spawn Chance" based on spawn cost and spawn tier.
+                // Trim down tierList into tiers that apply. Remove others.
+                foreach (SpawnTier tier in tierList)
+                {
+                    if (tier.tierID > spawnTier)
+                    {
+                        tierList.Remove(tier);
+                    }
+                }
 
-                
+                // With list of tiers trimmed, recalculate 
+
+
 
                 // Spawn enemy1.
                 GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
@@ -199,24 +205,35 @@ public class SpawnManager : MonoBehaviour
         currentEnemyCount -= 1;
     }
 
+    // ----------------------------------------------------------------------------------------------------------------------------
+    public void UpdateCalculatorUI ()
+    {
+        UICalculateSpawnBudget();
+    }
+
     public int UICalculateSpawnBudget()
     {
-        int exampleSpawnBudget = 0;
+        exampleSpawnBudget = 0;
+
+        if ((int)(exampleTime / 30) >= 5)
+            exampleSpawnTier = 5;
+        else if ((int)(exampleTime / 30) < 1)
+            exampleSpawnTier = 1;
+        else
+            exampleSpawnTier = (int)(exampleTime / 30) + 1;
 
         exampleTimeSpawnScale = (int)(exampleTime / 10);
 
-        if ((int)(exampleTime / 30) <= 0)
-            exampleSpawnTier = 1;
-        else if ((int)(exampleTime / 30) >= 5)
-            exampleSpawnTier = 5;
-        else exampleSpawnTier = (int)(exampleTime / 30);
-
-        if ((int)(((int)(Mathf.Sqrt(exampleWave)) / 2) * exampleDifficulty * exampleTimeSpawnScale) < 5)
+        //exampleSpawnBudget = (int)(((Mathf.Sqrt(exampleWave)) / 2) * exampleDifficulty * exampleTimeSpawnScale);
+        
+        
+        if ((int)(((Mathf.Sqrt(exampleWave)) / 2) * exampleDifficulty * exampleTimeSpawnScale) < 5)
             exampleSpawnBudget = 5;
-        else if ((int)(((int)(Mathf.Sqrt(exampleWave)) / 2) * exampleDifficulty * exampleTimeSpawnScale) >= 20)
+        else if ((int)(((Mathf.Sqrt(exampleWave)) / 2) * exampleDifficulty * exampleTimeSpawnScale) >= 20)
             exampleSpawnBudget = 20;
-        else exampleSpawnBudget = (int)(((int)(Mathf.Sqrt(exampleWave)) / 2) * exampleDifficulty * exampleTimeSpawnScale);
-
+        else 
+            exampleSpawnBudget = (int)(((Mathf.Sqrt(exampleWave)) / 2) * exampleDifficulty * exampleTimeSpawnScale);
+        
         return exampleSpawnBudget;
     }
 
@@ -228,6 +245,11 @@ public class SpawnManager : MonoBehaviour
     public int UISpawnTier()
     {
         return exampleSpawnTier;
+    }
+
+    public int UISpawnBudget()
+    {
+        return exampleSpawnBudget;
     }
 
     /// <summary>

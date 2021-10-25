@@ -764,13 +764,18 @@ MonoBehaviour:
   - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
     available: 0
   spawnTiers:
-  - categories:
+  - tierID: 1
+    categories:
     - enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
         available: 1
-      spawnChance: 0.33
+      spawnChance: 0.7
+    - enemies:
+      - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
+        available: 1
+      spawnChance: 0.3
 --- !u!1 &1039743000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,9 +1575,10 @@ MonoBehaviour:
   spawnAreaHeightLR: 15
   difficulty: 1
   spawnBudgetCap: 20
+  timeDivisor: 30
   exampleDifficulty: 2
-  exampleTime: 1
-  exampleWave: 1
+  exampleTime: 80.21
+  exampleWave: 2
 --- !u!1001 &2876026830631120695
 PrefabInstance:
   m_ObjectHideFlags: 0

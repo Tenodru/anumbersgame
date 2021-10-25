@@ -9,9 +9,10 @@ public class WaveSpawnerCalculator : Editor
         DrawDefaultInspector();
 
         SpawnManager waveSpawner = (SpawnManager)target;
+        waveSpawner.UpdateCalculatorUI();
 
         EditorGUILayout.LabelField("Spawn Tier: " + waveSpawner.UISpawnTier());
         EditorGUILayout.LabelField("Time Scale: " + waveSpawner.UITimeScale());
-        EditorGUILayout.LabelField("Spawn Budget: " + waveSpawner.UICalculateSpawnBudget());
+        EditorGUILayout.LabelField("Spawn Budget: " + waveSpawner.UISpawnBudget());
     }
 }

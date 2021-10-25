@@ -14,7 +14,7 @@ public class SpawnReferences : MonoBehaviour
     public Enemy enemy4;
 
     [Tooltip("List of all enemies as SpawnEntries.")] public List<SpawnEntry> enemies;
-    public List<SpawnTier> spawnTiers;
+    [Tooltip("All SpawnTiers. Contains SpawnCategories, groups of enemies with associated spawn chances.")] public List<SpawnTier> spawnTiers;
 
     /// <summary>
     /// Returns an array of enemy counts for each spawn tier at the current moment.
@@ -60,7 +60,7 @@ public class SpawnEntry
 public class SpawnCategory
 {
     [Tooltip("Enemy spawn entries.")] public List<SpawnEntry> enemies;
-    [Tooltip("The overall spawn chance for this category.")] public float spawnChance;
+    [Tooltip("The overall spawn chance for this category.")] [Range(0, 1)] public float spawnChance;
 }
 
 /// <summary>
@@ -69,5 +69,6 @@ public class SpawnCategory
 [System.Serializable]
 public class SpawnTier
 {
+    [Tooltip("The numeric value for this tier.")] public int tierID;
     [Tooltip("Enemy spawn categories.")] public List<SpawnCategory> categories;
 }
