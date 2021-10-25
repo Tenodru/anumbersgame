@@ -16,6 +16,12 @@ public class SpawnReferences : MonoBehaviour
     [Tooltip("List of all enemies as SpawnEntries.")] public List<SpawnEntry> enemies;
     [Tooltip("All SpawnTiers. Contains SpawnCategories, groups of enemies with associated spawn chances.")] public List<SpawnTier> spawnTiers;
 
+
+    [Header("Tier Spawn Chance Calculator")]                        //A calculator that displays the spawn chance for each tier based on current tier.
+    [Space(20)]
+    [Range(1, 4)] [SerializeField] int exampleTierCur = 1;
+    [SerializeField] List<SpawnTier> exampleTiers;
+
     /// <summary>
     /// Returns an array of enemy counts for each spawn tier at the current moment.
     /// Each index of returned array corresponds to a spawn tier (tier = index + 1)
@@ -39,7 +45,69 @@ public class SpawnReferences : MonoBehaviour
 
         return counts;
     }
+
+    public void UICalculateSpawnChances()
+    {
+        foreach (SpawnTier tier in exampleTiers)
+        {
+            // Return spawn chance of 0 if tier is higher than current tier.
+            if (tier.tierID > exampleTierCur)
+                tier.SetSpawnChance(0);
+
+            if (exampleTierCur == 1)
+            {
+                if (tier.tierID == 1)
+                    tier.SetSpawnChance(1);
+            }
+            else if (exampleTierCur == 2)
+            {
+                if (tier.tierID == 1)
+                    tier.SetSpawnChance(0.75f);
+                if (tier.tierID == 2)
+                    tier.SetSpawnChance(0.25f);
+            }
+            else if (exampleTierCur == 3)
+            {
+                if (tier.tierID == 1)
+                    tier.SetSpawnChance(0.6f);
+                if (tier.tierID == 2)
+                    tier.SetSpawnChance(0.3f);
+                if (tier.tierID == 3)
+                    tier.SetSpawnChance(0.1f);
+            }
+            else if (exampleTierCur == 4)
+            {
+                if (tier.tierID == 1)
+                    tier.SetSpawnChance(0.5f);
+                if (tier.tierID == 2)
+                    tier.SetSpawnChance(0.3f);
+                if (tier.tierID == 3)
+                    tier.SetSpawnChance(0.125f);
+                if (tier.tierID == 4)
+                    tier.SetSpawnChance(0.075f);
+            }
+        }
+        
+    }
+    public float UIGetTier1Chance()
+    {
+        return exampleTiers[0].GetSpawnChance();
+    }
+    public float UIGetTier2Chance()
+    {
+        return exampleTiers[1].GetSpawnChance();
+    }
+    public float UIGetTier3Chance()
+    {
+        return exampleTiers[2].GetSpawnChance();
+    }
+    public float UIGetTier4Chance()
+    {
+        return exampleTiers[3].GetSpawnChance();
+    }
 }
+
+
 
 /// <summary>
 /// A spawn entry for an enemy. Contains an Enemy and a boolean value determining Enemy availability
@@ -71,4 +139,15 @@ public class SpawnTier
 {
     [Tooltip("The numeric value for this tier.")] public int tierID;
     [Tooltip("Enemy spawn categories.")] public List<SpawnCategory> categories;
+
+    float spawnChance;
+
+    public void SetSpawnChance(float chance)
+    {
+        spawnChance = chance;
+    }
+    public float GetSpawnChance()
+    {
+        return spawnChance;
+    }
 }

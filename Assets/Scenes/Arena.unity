@@ -776,6 +776,16 @@ MonoBehaviour:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       spawnChance: 0.3
+  exampleTierCur: 4
+  exampleTiers:
+  - tierID: 1
+    categories: []
+  - tierID: 2
+    categories: []
+  - tierID: 3
+    categories: []
+  - tierID: 4
+    categories: []
 --- !u!1 &1039743000
 GameObject:
   m_ObjectHideFlags: 0
