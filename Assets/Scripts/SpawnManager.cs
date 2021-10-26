@@ -153,27 +153,36 @@ public class SpawnManager : MonoBehaviour
         SpawnTier tierToSpawn = spawnReferences.SelectTier(spawnChance);
 
         // With tier selected, generate another random number to select a category.
+        if (tierToSpawn.categories.Count == 0)
+        {
+            Debug.Log("No categories in selected tier! Trying again...");
+            SpawnEnemy(pos);
+            return;
+        }
         spawnChance = Random.Range(0, 1.0f);
         SpawnCategory catToSpawn = spawnReferences.SelectCategory(tierToSpawn, spawnChance);
 
         // Finally, select a random enemy in the category to spawn.
-        if (catToSpawn.enemies.Count > 0)
-        {
-            Enemy enemyToSpawn = catToSpawn.enemies[Random.Range(0, catToSpawn.enemies.Count)].enemy;
-
-            // Spawn the selected enemy..
-            GameObject newEnemy1 = Instantiate(enemyToSpawn.enemyChar, pos, rot);
-            newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-            newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
-
-            currentEnemyCount += 1;
-            spawnBudget -= enemyToSpawn.enemySpawnCost;
-        }
-        else
+        if (tierToSpawn.categories.Count == 0)
         {
             Debug.Log("No enemies in selected category to spawn! Trying again...");
             SpawnEnemy(pos);
+            return;
         }
+        Enemy enemyToSpawn = catToSpawn.enemies[Random.Range(0, catToSpawn.enemies.Count)].enemy;
+
+        // Spawn the selected enemy..
+        GameObject newEnemy1 = Instantiate(enemyToSpawn.enemyChar, pos, rot);
+        newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
+        newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
+
+        currentEnemyCount += 1;
+        spawnBudget -= enemyToSpawn.enemySpawnCost;
+        
+        
+        Debug.Log("No enemies in selected category to spawn! Trying again...");
+        SpawnEnemy(pos);
+        
     }
 
     /// <summary>
