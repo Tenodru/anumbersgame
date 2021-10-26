@@ -8,13 +8,6 @@ using UnityEngine;
 /// </summary>
 public class SpawnReferences : MonoBehaviour
 {
-    [Header("Enemies")]                                             //References to enemy assets to be spawned and their spawn costs.
-    public Enemy enemy1;
-    public Enemy enemy2;
-    public Enemy enemy3;
-    public Enemy enemy4;
-
-    [Tooltip("List of all enemies as SpawnEntries.")] public List<SpawnEntry> enemies;
     [Tooltip("All SpawnTiers. Contains SpawnCategories, groups of enemies with associated spawn chances.")] public List<SpawnTier> spawnTiers;
 
 
@@ -22,30 +15,6 @@ public class SpawnReferences : MonoBehaviour
     [Space(20)]
     [Range(1, 4)] [SerializeField] int exampleTierCur = 1;
     [SerializeField] List<SpawnTier> exampleTiers;
-
-    /// <summary>
-    /// Returns an array of enemy counts for each spawn tier at the current moment.
-    /// Each index of returned array corresponds to a spawn tier (tier = index + 1)
-    /// </summary>
-    /// <returns>array<int> | array of enemy counts</int></returns>
-    public int[] GetTierCount ()
-    {
-        int[] counts = new int[4];
-
-        foreach (SpawnTier tier in spawnTiers)
-        {
-            foreach (SpawnCategory cat in tier.categories)
-            {
-                foreach (SpawnEntry entry in cat.enemies)
-                {
-                    if (entry.available)
-                        counts[entry.enemy.enemySpawnTier - 1] += 1;
-                }
-            }
-        }
-
-        return counts;
-    }
 
     /// <summary>
     /// Calculates and sets spawn chances for all tiers in spawnTiers.
@@ -95,11 +64,13 @@ public class SpawnReferences : MonoBehaviour
 
         // Sort spawnTier list from smallest spawnChance to largest spawnChance.
         spawnTiers = spawnTiers.OrderBy(x => x.GetSpawnChance()).ToList();
+        /*
         foreach (SpawnTier tier in spawnTiers)
         {
             Debug.Log("Tier: " + tier.tierID + " ... with spawnChance: " + tier.GetSpawnChance());
         }
         Debug.Log("Count: " + spawnTiers.Count);
+        */
     }
 
     /// <summary>
@@ -140,7 +111,6 @@ public class SpawnReferences : MonoBehaviour
     /// <returns></returns>
     public SpawnCategory SelectCategory(SpawnTier tier, float chance)
     {
-        Debug.Log("Selecting cat from tier: " + tier.tierID + " ... with chance: " + chance);
         // Parse through spawnCategories list, from smallest spawnChance to largest spawnChance, and compare chance with cat.spawnChance.
         // Select the first category for which chance falls under cat.spawnChance.
         foreach (SpawnCategory cat in tier.categories)

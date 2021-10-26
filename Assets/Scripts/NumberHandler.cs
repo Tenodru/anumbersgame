@@ -18,7 +18,6 @@ public class NumberHandler : MonoBehaviour
     public void Start()
     {
         //projectileWidth = numberProjectiles[0].GetComponent<BoxCollider2D>().bounds.size.x;
-        Debug.Log("Proj Width: " + projectileWidth);
     }
 
 }

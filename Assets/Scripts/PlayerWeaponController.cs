@@ -7,6 +7,12 @@ public class PlayerWeaponController : MonoBehaviour
 {
     [Header("Weapon Attributes")]
     [SerializeField] int startTypeLimit = 1;
+    public int startingFuel = 100;
+    public int maxFuel = 100;
+    public int baseFuelConsumption = 10;
+    public int fuelRefillMultiplier = 1;
+    public float fuelRefillDelay = 1;
+    [HideInInspector] public int fuel;
 
     [Header("References")]
     [SerializeField] Transform firePoint;
@@ -20,19 +26,29 @@ public class PlayerWeaponController : MonoBehaviour
     // Other weapon attributes.
     int curTypeLimit;
     List<GameObject> numberProjectiles;
+    StatsDisplay statDisplay;
+    float timer;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        statDisplay = GetComponent<StatsDisplay>();
         numberProjectiles = numberHandler.numberProjectiles;
         curTypeLimit = startTypeLimit;
+        fuel = startingFuel;
     }
 
     // Update is called once per frame
     void Update()
     {
         Fire();
+        UpdateFuel();
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     public void Fire()
@@ -42,8 +58,10 @@ public class PlayerWeaponController : MonoBehaviour
         {
             // Read type sequence.
             string typeSequence = typeSystem.GetTypeSequence();
+            int curFuel = fuel;
 
-            if (typeSequence == "")
+            // Don't fire if nothing is loaded, or if the fuel consumption would be higher than the fuel we currently have.
+            if (typeSequence == "" || (curFuel -= baseFuelConsumption * typeSequence.Length) < 0)
             {
                 return;
             }
@@ -60,6 +78,11 @@ public class PlayerWeaponController : MonoBehaviour
                 newProj.GetComponent<ProjectileNumber>().team = Teams.Player;
                 newProj.GetComponent<ProjectileNumber>().baseSpeed = 4;
             }
+
+            // Consume fuel based on length of typeSequence.
+            int change = baseFuelConsumption * typeSequence.Length;
+            fuel = fuel - change;
+            statDisplay.ChangeFuelDisplay(-change, fuel);
 
             Debug.Log("Fired weapon.");
             firedWeapon.Invoke();
@@ -82,5 +105,26 @@ public class PlayerWeaponController : MonoBehaviour
     public int GetCurTypeLimit()
     {
         return curTypeLimit;
+    }
+
+    public void UpdateFuel()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= fuelRefillDelay)
+        {
+            timer = 0f;
+            int change = (1 * fuelRefillMultiplier);
+            if (fuel + change > maxFuel)
+            {
+                statDisplay.ChangeFuelDisplay(maxFuel - fuel, maxFuel);
+                fuel = maxFuel;
+            }
+            else
+            {
+                fuel += change;
+                statDisplay.ChangeFuelDisplay(change, fuel);
+            }
+        }
     }
 }

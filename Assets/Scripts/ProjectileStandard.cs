@@ -47,11 +47,11 @@ public class ProjectileStandard : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log(this.name + " collided with " + collider.gameObject.name);
+        //Debug.Log(this.name + " collided with " + collider.gameObject.name);
         // Destroy this projectile when it goes out of bounds.
         if (collider.gameObject.tag == "Deathbox")
         {
-            Debug.Log(this.name + " reached deathbox. Destroying now.");
+            //Debug.Log(this.name + " reached deathbox. Destroying now.");
             Destroy(this.gameObject);
         }
     }
