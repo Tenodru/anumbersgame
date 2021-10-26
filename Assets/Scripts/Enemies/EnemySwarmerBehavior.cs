@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Base class for enemy behavior.
+/// Base class that handles general behavior for the Swarmer enemy type. Inherits EnemyBehavior.
 /// </summary>
 public class EnemySwarmerBehavior : EnemyBehavior
 {
@@ -89,7 +89,7 @@ public class EnemySwarmerBehavior : EnemyBehavior
         if (collider.gameObject.tag == "Player")
         {
             // Decrease player health by this enemy's damage stat.
-            Debug.Log("Player took damage from " + this.gameObject.name);
+            //Debug.Log("Player took damage from " + this.gameObject.name);
             enemyKilled.Invoke();
             spawnManager.UpdateEnemyCount(-1);
             Destroy(this.gameObject);
@@ -97,7 +97,7 @@ public class EnemySwarmerBehavior : EnemyBehavior
 
         if (collider.gameObject.tag == "Projectile")
         {
-            Debug.Log(this.gameObject.name + " hit by projectile!");
+            //Debug.Log(this.gameObject.name + " hit by projectile!");
             // Check to see if projectile is from player.
             if (collider.GetComponent<ProjectileStandard>().team == Teams.Player)
             {
@@ -106,7 +106,7 @@ public class EnemySwarmerBehavior : EnemyBehavior
                 {
                     if (projectileWeaknesses.Contains(collider.GetComponent<ProjectileStandard>().projectileTypes[i]))
                     {
-                        Debug.Log(this.gameObject.name + " successfully destroyed by player projectile!");
+                        //Debug.Log(this.gameObject.name + " successfully destroyed by player projectile!");
                         enemyKilled.Invoke();
                         spawnManager.UpdateEnemyCount(-1);
                         Destroy(this.gameObject);

@@ -44,6 +44,7 @@ public class SpawnManager : MonoBehaviour
     SpawnReferences spawnReferences;
 
     // Additional spawn variables.
+    int lastTier = 0;
     float nextSpawnTime = 0.0f;
     int enemiesKilled = 0;
     int currentEnemyCount = 0;
@@ -63,13 +64,22 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Scale spawnTier with time. Raise spawnTier every [timeDivisor] seconds, to a max of 4.
         currentTime = (int)Time.time;
 
         if ((int)(Time.time / timeDivisor) < 1)
             spawnTier = 1;
-        else if ((int)(Time.time / timeDivisor) >= 5)
-            spawnTier = 5;
-        else spawnTier = (int)(Time.time / timeDivisor) + 1;
+        else if ((int)(Time.time / timeDivisor) >= 4)
+            spawnTier = 4;
+        else
+            spawnTier = (int)(Time.time / timeDivisor) + 1;
+
+        // If spawnTier changed, recalculate tier spawn chances in SpawnReferences.
+        if (spawnTier != lastTier)
+        {
+            lastTier = spawnTier;
+            spawnReferences.CalculateTierSpawnChances(spawnTier);
+        }
 
         // Refill the spawn budget whenever the current enemy count reaches or drops below difficulty * 2, then spawn the next wave of enemies.
         if (currentEnemyCount <= difficulty * 2)
@@ -100,77 +110,69 @@ public class SpawnManager : MonoBehaviour
         {
             float spawnAreaChance = Random.Range(0, 1.0f);
 
-            // Calculate spawn chances for all enemies first.
-            CalcSpawnChances();
-
             // Get available enemies from SpawnReferences.
-            List<SpawnTier> tierList = spawnReferences.spawnTiers;
+            List<SpawnTier> tierList = new List<SpawnTier>(spawnReferences.spawnTiers);
 
             if (spawnAreaChance <= 0.25f)
             {
-                float spawnChance = Random.Range(0, 1.0f);
-
                 Vector3 randPoint = new Vector3(Random.Range(upperSpawnPoint.position.x - spawnAreaLengthUL, upperSpawnPoint.position.x + spawnAreaLengthUL), Random.Range(upperSpawnPoint.position.y - spawnAreaHeightUL, upperSpawnPoint.position.y + spawnAreaHeightUL), upperSpawnPoint.position.z);
-                
-                // Write an algorithm that pseudorandomly selects which enemy to spawn based on a "Spawn Chance" param
-                // Calculate "Spawn Chance" based on spawn cost and spawn tier.
-                // Trim down tierList into tiers that apply. Remove others.
-                foreach (SpawnTier tier in tierList)
-                {
-                    if (tier.tierID > spawnTier)
-                    {
-                        tierList.Remove(tier);
-                    }
-                }
 
-                // With list of tiers trimmed, recalculate 
-
-
-
-                // Spawn enemy1.
-                GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
-
-                currentEnemyCount += 1;
-                spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
+                SpawnEnemy(randPoint);
             }
             if (spawnAreaChance > 0.25f && spawnAreaChance <= 0.5f)
             {
                 Vector3 randPoint = new Vector3(Random.Range(lowerSpawnPoint.position.x - spawnAreaLengthUL, lowerSpawnPoint.position.x + spawnAreaLengthUL), Random.Range(lowerSpawnPoint.position.y - spawnAreaHeightUL, lowerSpawnPoint.position.y + spawnAreaHeightUL), lowerSpawnPoint.position.z);
 
-                // Spawn enemy1.
-                GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
-
-                currentEnemyCount += 1;
-                spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
+                SpawnEnemy(randPoint);
             }
             if (spawnAreaChance > 0.50f && spawnAreaChance <= 0.75f)
             {
                 Vector3 randPoint = new Vector3(Random.Range(leftSpawnPoint.position.x - spawnAreaLengthLR, leftSpawnPoint.position.x + spawnAreaLengthLR), Random.Range(leftSpawnPoint.position.y - spawnAreaHeightLR, leftSpawnPoint.position.y + spawnAreaHeightLR), lowerSpawnPoint.position.z);
 
-                // Spawn enemy1.
-                GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
-
-                currentEnemyCount += 1;
-                spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
+                SpawnEnemy(randPoint);
             }
             if (spawnAreaChance > 0.75f)
             {
                 Vector3 randPoint = new Vector3(Random.Range(rightSpawnPoint.position.x - spawnAreaLengthLR, rightSpawnPoint.position.x + spawnAreaLengthLR), Random.Range(rightSpawnPoint.position.y - spawnAreaHeightLR, rightSpawnPoint.position.y + spawnAreaHeightLR), lowerSpawnPoint.position.z);
 
-                // Spawn enemy1.
-                GameObject newEnemy1 = Instantiate(spawnReferences.enemy1.enemyChar, randPoint, rot);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
-                newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
-
-                currentEnemyCount += 1;
-                spawnBudget -= spawnReferences.enemy1.enemySpawnCost;
+                SpawnEnemy(randPoint);
             }
+        }
+    }
+
+    /// <summary>
+    /// Selects and spawns an enemy at the given position..
+    /// </summary>
+    /// <param name="pos"></param>
+    public void SpawnEnemy(Vector3 pos)
+    {
+        Quaternion rot = new Quaternion(0, 0, 0, 0);
+
+        // Generate a random number to select a tier.
+        float spawnChance = Random.Range(0, 1.0f);
+        SpawnTier tierToSpawn = spawnReferences.SelectTier(spawnChance);
+
+        // With tier selected, generate another random number to select a category.
+        spawnChance = Random.Range(0, 1.0f);
+        SpawnCategory catToSpawn = spawnReferences.SelectCategory(tierToSpawn, spawnChance);
+
+        // Finally, select a random enemy in the category to spawn.
+        if (catToSpawn.enemies.Count > 0)
+        {
+            Enemy enemyToSpawn = catToSpawn.enemies[Random.Range(0, catToSpawn.enemies.Count)].enemy;
+
+            // Spawn the selected enemy..
+            GameObject newEnemy1 = Instantiate(enemyToSpawn.enemyChar, pos, rot);
+            newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
+            newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
+
+            currentEnemyCount += 1;
+            spawnBudget -= enemyToSpawn.enemySpawnCost;
+        }
+        else
+        {
+            Debug.Log("No enemies in selected category to spawn! Trying again...");
+            SpawnEnemy(pos);
         }
     }
 
@@ -193,7 +195,7 @@ public class SpawnManager : MonoBehaviour
     public void UpdateEnemyCount(int change)
     {
         currentEnemyCount += change;
-        Debug.Log("Updated enemy count.");
+        //Debug.Log("Updated enemy count.");
     }
 
     /// <summary>

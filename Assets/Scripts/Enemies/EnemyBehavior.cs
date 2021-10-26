@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
-/// Base class for enemy behavior.
+/// Base class that handles general enemy behavior. Specific enemy types will use their own behavior class that inherits this one.
+/// See EnemySwarmerbehavior as an inheritance example.
 /// </summary>
 public class EnemyBehavior : MonoBehaviour
 {
