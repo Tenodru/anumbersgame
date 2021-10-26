@@ -129,7 +129,7 @@ public class SpawnReferences : MonoBehaviour
             }
         }
 
-        return null;
+        return spawnTiers.Last();
     }
 
     /// <summary>
@@ -140,6 +140,7 @@ public class SpawnReferences : MonoBehaviour
     /// <returns></returns>
     public SpawnCategory SelectCategory(SpawnTier tier, float chance)
     {
+        Debug.Log("Selecting cat from tier: " + tier.tierID + " ... with chance: " + chance);
         // Parse through spawnCategories list, from smallest spawnChance to largest spawnChance, and compare chance with cat.spawnChance.
         // Select the first category for which chance falls under cat.spawnChance.
         foreach (SpawnCategory cat in tier.categories)
@@ -150,8 +151,33 @@ public class SpawnReferences : MonoBehaviour
             }
         }
 
-        return null;
+        return tier.categories.Last();
     }
+
+    /* If we were to use weights instead of percentages.
+    public float GetChanceRangeUpperLim(SpawnTier tier = null, SpawnCategory cat = null)
+    {
+        if (tier == null && cat == null)
+        {
+            return 1;
+        }
+        else if (tier == null)
+        {
+            float totalChance = 0;
+            foreach (SpawnEntry entry in cat.enemies)
+            {
+                totalChance += entry.;
+            }
+        }
+        else
+        {
+            float totalChance = 0;
+            foreach (SpawnCategory cat in tier.categories)
+            {
+                totalChance += cat.spawnChance;
+            }
+        }
+    }*/
 
 
     // ------------------------------------------------------------------------------------------------------
@@ -238,6 +264,7 @@ public class SpawnEntry
 [System.Serializable]
 public class SpawnCategory
 {
+    [Tooltip("The numeric ID for this category.")] public int catID;
     [Tooltip("Enemy spawn entries.")] public List<SpawnEntry> enemies;
     [Tooltip("The overall spawn chance for this category.")] [Range(0, 1)] public float spawnChance;
 }

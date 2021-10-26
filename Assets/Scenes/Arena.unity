@@ -766,49 +766,57 @@ MonoBehaviour:
   spawnTiers:
   - tierID: 1
     categories:
-    - enemies:
+    - catID: 0
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
         available: 1
       spawnChance: 0.7
-    - enemies:
+    - catID: 1
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       spawnChance: 0.3
   - tierID: 2
     categories:
-    - enemies:
+    - catID: 0
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
         available: 1
       spawnChance: 0.7
-    - enemies:
+    - catID: 1
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       spawnChance: 0.3
   - tierID: 3
     categories:
-    - enemies:
+    - catID: 0
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
         available: 1
       spawnChance: 0.7
-    - enemies:
+    - catID: 0
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       spawnChance: 0.3
   - tierID: 4
     categories:
-    - enemies:
+    - catID: 0
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
         available: 1
       spawnChance: 0.7
-    - enemies:
+    - catID: 0
+      enemies:
       - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
         available: 1
       spawnChance: 0.3

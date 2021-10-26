@@ -151,6 +151,7 @@ public class SpawnManager : MonoBehaviour
         // Generate a random number to select a tier.
         float spawnChance = Random.Range(0, 1.0f);
         SpawnTier tierToSpawn = spawnReferences.SelectTier(spawnChance);
+        Debug.Log("Tier selected: " + tierToSpawn.tierID);
 
         // With tier selected, generate another random number to select a category.
         if (tierToSpawn.categories.Count == 0)
@@ -161,9 +162,10 @@ public class SpawnManager : MonoBehaviour
         }
         spawnChance = Random.Range(0, 1.0f);
         SpawnCategory catToSpawn = spawnReferences.SelectCategory(tierToSpawn, spawnChance);
+        Debug.Log("Category selected: " + catToSpawn.catID);
 
         // Finally, select a random enemy in the category to spawn.
-        if (tierToSpawn.categories.Count == 0)
+        if (catToSpawn.enemies.Count == 0)
         {
             Debug.Log("No enemies in selected category to spawn! Trying again...");
             SpawnEnemy(pos);
@@ -178,11 +180,6 @@ public class SpawnManager : MonoBehaviour
 
         currentEnemyCount += 1;
         spawnBudget -= enemyToSpawn.enemySpawnCost;
-        
-        
-        Debug.Log("No enemies in selected category to spawn! Trying again...");
-        SpawnEnemy(pos);
-        
     }
 
     /// <summary>
