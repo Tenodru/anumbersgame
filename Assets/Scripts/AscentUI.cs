@@ -133,8 +133,8 @@ namespace AscentUI
             {
                 bar = newBar;
 
-                barDefaultHeightSize = bar.sizeDelta.y;
-                barDefaultWidthSize = bar.sizeDelta.x;
+                barDefaultHeightSize = newBar.sizeDelta.y;
+                barDefaultWidthSize = newBar.sizeDelta.x;
                 barHeightSize = bar.sizeDelta.y;
                 barWidthSize = bar.sizeDelta.x;
             }
@@ -153,8 +153,8 @@ namespace AscentUI
                 displayText = newDisplaytext;
                 background = bg;
 
-                barDefaultHeightSize = bar.sizeDelta.y;
-                barDefaultWidthSize = bar.sizeDelta.x;
+                barDefaultHeightSize = newBar.sizeDelta.y;
+                barDefaultWidthSize = newBar.sizeDelta.x;
                 barHeightSize = bar.sizeDelta.y;
                 barWidthSize = bar.sizeDelta.x;
             }
@@ -171,8 +171,8 @@ namespace AscentUI
                 label = newLabel;
                 displayText = newDisplaytext;
 
-                barDefaultHeightSize = bar.sizeDelta.y;
-                barDefaultWidthSize = bar.sizeDelta.x;
+                barDefaultHeightSize = newBar.sizeDelta.y;
+                barDefaultWidthSize = newBar.sizeDelta.x;
                 barHeightSize = bar.sizeDelta.y;
                 barWidthSize = bar.sizeDelta.x;
             }
@@ -214,10 +214,11 @@ namespace AscentUI
                 }
                 if (attribute == BarAttribute.Width)
                 {
-                    bar.sizeDelta = new Vector2(barWidthSize + changeAmount, barHeightSize);
+                    bar.sizeDelta = new Vector2(bar.sizeDelta.x + changeAmount, barHeightSize);
                     barWidthSize = bar.sizeDelta.x;
 
                     displayText.text = (label + newAmount);
+                    Debug.Log("Changed label to: " + label + newAmount);
                 }
             }
 

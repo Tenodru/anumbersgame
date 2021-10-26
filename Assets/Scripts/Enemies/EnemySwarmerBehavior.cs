@@ -108,6 +108,7 @@ public class EnemySwarmerBehavior : EnemyBehavior
                     {
                         //Debug.Log(this.gameObject.name + " successfully destroyed by player projectile!");
                         enemyKilled.Invoke();
+                        collider.GetComponent<ProjectileNumber>().originPlayer.playerStats.GainXP(enemyXP);             // Reward player with XP.
                         spawnManager.UpdateEnemyCount(-1);
                         Destroy(collider.gameObject);
                         Destroy(this.gameObject);

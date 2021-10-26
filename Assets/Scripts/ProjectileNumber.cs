@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ProjectileNumber : ProjectileStandard
 {
+    [Tooltip("The player that fired this projectile.")]
+    public Player originPlayer;
 
     // Other projectile characteristics.
 

@@ -16,7 +16,6 @@ public class Enemy : ScriptableObject
     [Header("Enemy Spawn Attributes")]
     [Tooltip("The tier this enemy can begin to spawn in.")] public int enemySpawnTier;
     [Tooltip("The cost for the spawn manager to spawn this enemy.")] public int enemySpawnCost;
-    [Tooltip("The experience granted when this enemy is destroyed.")] public int enemyXP;
 
     // Other attributes.
     float baseChance = 0f;
