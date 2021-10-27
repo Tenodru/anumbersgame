@@ -14,6 +14,7 @@ public class GameStateHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         player = FindObjectOfType<Player>();
         gameOverUI.SetActive(false);
     }
