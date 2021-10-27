@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public PlayerMovementController playerMoveControl;
     public PlayerWeaponController playerWeapControl;
     public PlayerStats playerStats;
+    public EnemyBehavior enemyBehavior;
+    private float health = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -17,11 +19,21 @@ public class Player : MonoBehaviour
         playerMoveControl = GetComponent<PlayerMovementController>();
         playerWeapControl = GetComponent<PlayerWeaponController>();
         playerStats = GetComponent<PlayerStats>();
+        enemyBehavior = GetComponent<EnemyBehavior>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            health -= EnemyBehavior.damage;
+            Debug.Log(health);
+        } 
     }
 }

@@ -11,7 +11,7 @@ public class EnemyBehavior : MonoBehaviour
 {
     [Header("Enemy Attributes")]
     public float charVelocity = 2f;
-    [Tooltip("The damage this enemy will do to player health.")] public float damage = 1.0f;
+    [Tooltip("The damage this enemy will do to player health.")] public static float damage = 1.0f;
     [Tooltip("List of projectiles that can damage this enemy.")] public List<ProjectileType> projectileWeaknesses;
     [Tooltip("The experience granted when this enemy is destroyed.")] public int enemyXP;
 
