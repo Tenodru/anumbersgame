@@ -89,7 +89,8 @@ public class EnemySwarmerBehavior : EnemyBehavior
         if (collider.gameObject.tag == "Player")
         {
             // Decrease player health by this enemy's damage stat.
-            //Debug.Log("Player took damage from " + this.gameObject.name);
+            collider.GetComponent<Player>().playerStats.TakeDamage(damage);
+            Debug.Log("Player took " + damage + " damage from " + gameObject.name);
             enemyKilled.Invoke();
             spawnManager.UpdateEnemyCount(-1);
             Destroy(this.gameObject);

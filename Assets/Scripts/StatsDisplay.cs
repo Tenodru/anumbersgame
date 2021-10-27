@@ -18,6 +18,12 @@ public class StatsDisplay : MonoBehaviour
     [Tooltip("This character's xp display element.")]
     public DisplayElementBar xpDisplay;
 
+    [Header("Health Display")]
+    [Tooltip("The orientation of this Display.")]
+    public BarOrientation orientationHP;
+    [Tooltip("This character's health display element.")]
+    public DisplayElementBar hpDisplay;
+
     float percentage;
     float barChange;
 
@@ -58,7 +64,6 @@ public class StatsDisplay : MonoBehaviour
     public virtual void ChangeXPDisplay(int amount, int curLevel)
     {
         percentage = (float)amount / (float)playerStats.GetReqXPForLevel();
-        Debug.Log("Percentage:" + percentage);
 
         if (orientationXP == BarOrientation.Vertical)
         {
@@ -68,8 +73,29 @@ public class StatsDisplay : MonoBehaviour
         if (orientationXP == BarOrientation.Horizontal)
         {
             barChange = percentage * xpDisplay.barDefaultWidthSize;
-            Debug.Log("Default Bar Width: " + xpDisplay.barDefaultWidthSize);
             xpDisplay.UpdateBar(BarAttribute.Width, barChange, curLevel);
+        }
+    }
+
+    /// <summary>
+    /// Updates the Health display.
+    /// </summary>
+    /// <param name="amount"></param>
+    public virtual void ChangeHealthDisplay(float amount, float curHealth)
+    {
+        percentage = (float)amount / (float)playerStats.GetMaxHealth();
+        Debug.Log("Percentage:" + percentage);
+
+        if (orientationXP == BarOrientation.Vertical)
+        {
+            barChange = percentage * hpDisplay.barDefaultHeightSize;
+            hpDisplay.UpdateBar(BarAttribute.Height, barChange, curHealth);
+        }
+        if (orientationXP == BarOrientation.Horizontal)
+        {
+            barChange = percentage * hpDisplay.barDefaultWidthSize;
+            Debug.Log("Default Bar Width: " + hpDisplay.barDefaultWidthSize);
+            hpDisplay.UpdateBar(BarAttribute.Width, barChange, curHealth);
         }
     }
 
@@ -87,7 +113,8 @@ public class StatsDisplay : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         fuelDisplay = new DisplayElementBar(fuelDisplay.bar, fuelDisplay.label, fuelDisplay.displayText, fuelDisplay.background);
         xpDisplay = new DisplayElementBar(xpDisplay.bar, xpDisplay.label, xpDisplay.displayText, xpDisplay.background);
-        xpDisplay.bar.sizeDelta = new Vector2(0, xpDisplay.bar.sizeDelta.y);
+        ResetXPBar();
+        hpDisplay = new DisplayElementBar(hpDisplay.bar, hpDisplay.label, hpDisplay.displayText, hpDisplay.background);
     }
 }
 

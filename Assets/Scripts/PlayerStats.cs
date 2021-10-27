@@ -10,18 +10,25 @@ public class PlayerStats : MonoBehaviour
     [Header("Experience and Levels")]
     public int xpGainMultiplier = 1;
     public int startingLevel = 1;
+    public bool canGainXP = true;
+
+    [Header("Health")]
+    public float startingHealth = 100;
+    float currentHealth;
+    float maxHealth;
 
     // Other variables and references.
     StatsDisplay statDisplay;
-    public int currentXP;
-    public int currentXPTotal;
-    public int currentLevel;
-    public bool canGainXP = true;
+    int currentXP;
+    int currentXPTotal;
+    int currentLevel;
 
     // Start is called before the first frame update
     void Start()
     {
         statDisplay = GetComponent<StatsDisplay>();
+        maxHealth = startingHealth;
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -29,6 +36,8 @@ public class PlayerStats : MonoBehaviour
     {
         
     }
+
+    // XP and Levels -------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Called when the player earns XP.
@@ -78,5 +87,72 @@ public class PlayerStats : MonoBehaviour
         currentLevel++;
         currentXP = 0;
         // Do other level-up stuff.
+    }
+
+    /// <summary>
+    /// Gets this Player's current XP.
+    /// </summary>
+    /// <returns>int | currentXP</returns>
+    public int GetCurrentXP()
+    {
+        return currentXP;
+    }
+
+    /// <summary>
+    /// Gets this Player's current XP total.
+    /// </summary>
+    /// <returns>int | currentXPTotal</returns>
+    public int GetCurrentXPTotal()
+    {
+        return currentXPTotal;
+    }
+
+    /// <summary>
+    /// Gets this Player's current level.
+    /// </summary>
+    /// <returns>int | currentXP</returns>
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
+    }
+
+    // Health -------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Player takes damage. Health is decreased by the specified amount.
+    /// </summary>
+    /// <param name="damage">The amount to decrease player health by.</param>
+    public void TakeDamage (float damage)
+    {
+        currentHealth -= damage;
+        statDisplay.ChangeHealthDisplay(-damage, currentHealth);
+        Debug.Log("Player Health: " + currentHealth);
+    }
+
+    /// <summary>
+    /// Get this Player's starting health.
+    /// </summary>
+    /// <returns></returns>
+    public float GetStartingHealth()
+    {
+        return startingHealth;
+    }
+
+    /// <summary>
+    /// Get this Player's current health.
+    /// </summary>
+    /// <returns></returns>
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    /// <summary>
+    /// Get this Player's maximum health.
+    /// </summary>
+    /// <returns></returns>
+    public float GetMaxHealth()
+    {
+        return maxHealth;
     }
 }

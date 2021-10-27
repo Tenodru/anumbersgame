@@ -218,7 +218,6 @@ namespace AscentUI
                     barWidthSize = bar.sizeDelta.x;
 
                     displayText.text = (label + newAmount);
-                    Debug.Log("Changed label to: " + label + newAmount);
                 }
             }
 
