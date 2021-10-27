@@ -113,9 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charVelocity: 2
-  damage: 20
+  damage: 5
   projectileWeaknesses: 03000000
-  enemyXP: 5
+  enemyXP: 2
   enemyKilled:
     m_PersistentCalls:
       m_Calls: []

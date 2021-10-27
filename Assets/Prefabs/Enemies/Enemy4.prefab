@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2821201362739281578}
   - component: {fileID: 2821201362739281575}
   m_Layer: 0
-  m_Name: Enemy3Swarmer
+  m_Name: Enemy4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d1ae089b7139d264eafcf6e112d63040, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70e78c12c2872dd4b9f7f6e4c67830e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -113,9 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charVelocity: 2
-  damage: 5
-  projectileWeaknesses: 04000000
-  enemyXP: 5
+  damage: 10
+  projectileWeaknesses: 05000000
+  enemyXP: 10
   enemyKilled:
     m_PersistentCalls:
       m_Calls: []

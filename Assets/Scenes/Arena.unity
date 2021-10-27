@@ -1753,16 +1753,9 @@ MonoBehaviour:
     categories:
     - catID: 0
       enemies:
-      - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
+      - enemy: {fileID: 11400000, guid: 0a575a42b87560d4d94beb8a946a70e3, type: 2}
         available: 1
-      - enemy: {fileID: 11400000, guid: e375a7f24f87c2b48a7aecb236577d1c, type: 2}
-        available: 1
-      spawnChance: 0.7
-    - catID: 1
-      enemies:
-      - enemy: {fileID: 11400000, guid: 4626738ac37687849bbbba91602c44ce, type: 2}
-        available: 1
-      spawnChance: 0.3
+      spawnChance: 1
   - tierID: 3
     categories:
     - catID: 0

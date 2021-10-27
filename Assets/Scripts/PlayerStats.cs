@@ -75,8 +75,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (curLevel == 0)
             curLevel = currentLevel;
-        //return 10 * (int)Mathf.Pow(curLevel, 2);
-        return 10;
+        return 10 * (int)Mathf.Pow(curLevel, 2);
     }
 
     /// <summary>
