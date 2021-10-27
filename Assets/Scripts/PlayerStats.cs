@@ -124,6 +124,12 @@ public class PlayerStats : MonoBehaviour
     /// <param name="damage">The amount to decrease player health by.</param>
     public void TakeDamage (float damage)
     {
+        if (currentHealth - damage < 0)
+        {
+            statDisplay.ChangeHealthDisplay(-currentHealth, 0);
+            currentHealth = 0;
+            return;
+        }
         currentHealth -= damage;
         statDisplay.ChangeHealthDisplay(-damage, currentHealth);
         Debug.Log("Player Health: " + currentHealth);
