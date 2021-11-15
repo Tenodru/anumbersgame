@@ -7,7 +7,7 @@ public class PlayerWeaponController : MonoBehaviour
 {
     [Header("Weapon Attributes")]
     [SerializeField] int startTypeLimit = 1;
-    [HideInInspector] public int fuel;
+    
 
     [Header("References")]
     [SerializeField] Transform firePoint;
@@ -33,8 +33,6 @@ public class PlayerWeaponController : MonoBehaviour
         statDisplay = GetComponent<StatsDisplay>();
         numberProjectiles = numberHandler.numberProjectiles;
         curTypeLimit = startTypeLimit;
-
-        fuel = stats.startingFuel;
     }
 
     // Update is called once per frame
@@ -56,7 +54,7 @@ public class PlayerWeaponController : MonoBehaviour
         {
             // Read type sequence.
             string typeSequence = typeSystem.GetTypeSequence();
-            int curFuel = fuel;
+            int curFuel = stats.fuel;
 
             // Don't fire if nothing is loaded, or if the fuel consumption would be higher than the fuel we currently have.
             if (typeSequence == "" || (curFuel -= stats.baseFuelConsumption * typeSequence.Length) < 0)
@@ -81,8 +79,8 @@ public class PlayerWeaponController : MonoBehaviour
 
             // Consume fuel based on length of typeSequence.
             int change = stats.baseFuelConsumption * typeSequence.Length;
-            fuel = fuel - change;
-            statDisplay.ChangeFuelDisplay(-change, fuel);
+            stats.fuel = stats.fuel - change;
+            statDisplay.ChangeFuelDisplay(-change, stats.fuel);
 
             Debug.Log("Fired weapon.");
             firedWeapon.Invoke();
@@ -115,15 +113,15 @@ public class PlayerWeaponController : MonoBehaviour
         {
             timer = 0f;
             int change = (1 * stats.fuelRefillMultiplier);
-            if (fuel + change > stats.maxFuel)
+            if (stats.fuel + change > stats.maxFuel)
             {
-                statDisplay.ChangeFuelDisplay(stats.maxFuel - fuel, stats.maxFuel);
-                fuel = stats.maxFuel;
+                statDisplay.ChangeFuelDisplay(stats.maxFuel - stats.fuel, stats.maxFuel);
+                stats.fuel = stats.maxFuel;
             }
             else
             {
-                fuel += change;
-                statDisplay.ChangeFuelDisplay(change, fuel);
+                stats.fuel += change;
+                statDisplay.ChangeFuelDisplay(change, stats.fuel);
             }
         }
     }

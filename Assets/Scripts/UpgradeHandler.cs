@@ -10,7 +10,7 @@ public class UpgradeHandler : MonoBehaviour
     public float xpGainPerLevel;
     [Header("HP")]
     public int hpGainLevel;
-    public float hpGainPerLevel;
+    public float hpGainPerLevel = 20;
     [Header("Fuel")]
     public int fuelGainLevel;
     public float fuelGainPerLevel;
@@ -181,5 +181,13 @@ public class UpgradeHandler : MonoBehaviour
         upgradeScreenOpen = false;
         references.upgradeUICanvas.SetActive(false);
         references.mainCanvas.SetActive(true);
+    }
+
+    // Base Upgrades -------------------------------------------------------------------------------------------
+
+    public void UpgradeHP()
+    {
+        hpGainLevel += 1;
+
     }
 }

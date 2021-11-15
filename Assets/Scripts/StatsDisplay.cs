@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using AscentUI.Elements;
 using System;
 
@@ -23,6 +25,14 @@ public class StatsDisplay : MonoBehaviour
     public BarOrientation orientationHP;
     [Tooltip("This character's health display element.")]
     public DisplayElementBar hpDisplay;
+    [Tooltip("This character's HP display element bar.")]
+    public Slider healthDisplayBar;
+    [Tooltip("This character's currentHP label.")]
+    public TextMeshProUGUI currentHealthLabel;
+    [Tooltip("This character's maxHP label.")]
+    public TextMeshProUGUI maxHealthLabel;
+
+    float healthBarWidth;
 
     float percentage;
     float barChange;
@@ -77,10 +87,22 @@ public class StatsDisplay : MonoBehaviour
         }
     }
 
+    public virtual void UpdateHealthBar(float barValue)
+    {
+        healthDisplayBar.value = barValue;
+        currentHealthLabel.text = playerStats.GetCurrentHealth().ToString();
+    }
+
+    public virtual void UpdateMaxHealth(float value)
+    {
+        maxHealthLabel.text = "/ " + playerStats.GetMaxHealth().ToString();
+    }
+
     /// <summary>
     /// Updates the Health display.
     /// </summary>
     /// <param name="amount"></param>
+    [System.Obsolete("Deprecated. Use UpdateHealthBar with Slider instead.")]
     public virtual void ChangeHealthDisplay(float amount, float curHealth)
     {
         percentage = (float)amount / (float)playerStats.GetMaxHealth();
@@ -114,7 +136,9 @@ public class StatsDisplay : MonoBehaviour
         fuelDisplay = new DisplayElementBar(fuelDisplay.bar, fuelDisplay.label, fuelDisplay.displayText, fuelDisplay.background);
         xpDisplay = new DisplayElementBar(xpDisplay.bar, xpDisplay.label, xpDisplay.displayText, xpDisplay.background);
         ResetXPBar();
-        hpDisplay = new DisplayElementBar(hpDisplay.bar, hpDisplay.label, hpDisplay.displayText, hpDisplay.background);
+        //hpDisplay = new DisplayElementBar(hpDisplay.bar, hpDisplay.label, hpDisplay.displayText, hpDisplay.background);
+
+        healthBarWidth = healthDisplayBar.GetComponent<RectTransform>().sizeDelta.x;
     }
 }
 
