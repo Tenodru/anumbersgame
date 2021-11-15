@@ -103,6 +103,11 @@ public class UpgradeHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts a fade-out/fade-in cycle for the specified object.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="co"></param>
     public void FadeObjectCycle(GameObject obj, Coroutine co)
     {
         co = StartCoroutine(FadeObjectOut(obj, 1, co));
@@ -158,6 +163,9 @@ public class UpgradeHandler : MonoBehaviour
             StartCoroutine(FadeObjectOut(obj, dur));
     }
 
+    /// <summary>
+    /// Opens the upgrade screen.
+    /// </summary>
     public void OpenUpgradeScreen()
     {
         references.upgradeUICanvas.SetActive(true);
@@ -165,6 +173,9 @@ public class UpgradeHandler : MonoBehaviour
         upgradeScreenOpen = true;
     }
 
+    /// <summary>
+    /// Closes the upgrade screen.
+    /// </summary>
     public void CloseUpgradeScreen()
     {
         upgradeScreenOpen = false;

@@ -8,7 +8,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Experience and Levels")]
-    public int xpGainMultiplier = 1;
+    public float xpGainMultiplier = 1;
     public int startingLevel = 1;
     public bool canGainXP = true;
     public int upgradePoints = 0;
@@ -28,8 +28,8 @@ public class PlayerStats : MonoBehaviour
     // Other variables and references.
     public static PlayerStats current;
     StatsDisplay statDisplay;
-    int currentXP;
-    int currentXPTotal;
+    float currentXP;
+    float currentXPTotal;
     int currentLevel;
 
     private void Awake()
@@ -57,13 +57,13 @@ public class PlayerStats : MonoBehaviour
     /// Called when the player earns XP.
     /// </summary>
     /// <param name="xpAmount"></param>
-    public void GainXP(int xpAmount)
+    public void GainXP(float xpAmount)
     {
-        int reqXP = GetReqXPForLevel();
+        float reqXP = GetReqXPForLevel();
         Debug.Log("Gained XP: " + xpAmount);
         if (currentXP + (xpAmount * xpGainMultiplier) >= reqXP)
         {
-            int extraXP = (currentXP + (xpAmount * xpGainMultiplier)) - reqXP;
+            float extraXP = (currentXP + (xpAmount * xpGainMultiplier)) - reqXP;
             Debug.Log("Extra XP: " + extraXP);
             GainLevel();
             statDisplay.ResetXPBar();
@@ -85,11 +85,11 @@ public class PlayerStats : MonoBehaviour
     /// </summary>
     /// <param name="curLevel"></param>
     /// <returns></returns>
-    public int GetReqXPForLevel(int curLevel = 0)
+    public float GetReqXPForLevel(int curLevel = 0)
     {
         if (curLevel == 0)
             curLevel = currentLevel;
-        return 10 * (int)Mathf.Pow(curLevel, 2);
+        return 10 * Mathf.Pow(curLevel, 2);
     }
 
     /// <summary>
@@ -106,8 +106,8 @@ public class PlayerStats : MonoBehaviour
     /// <summary>
     /// Gets this Player's current XP.
     /// </summary>
-    /// <returns>int | currentXP</returns>
-    public int GetCurrentXP()
+    /// <returns>float | currentXP</returns>
+    public float GetCurrentXP()
     {
         return currentXP;
     }
@@ -116,7 +116,7 @@ public class PlayerStats : MonoBehaviour
     /// Gets this Player's current XP total.
     /// </summary>
     /// <returns>int | currentXPTotal</returns>
-    public int GetCurrentXPTotal()
+    public float GetCurrentXPTotal()
     {
         return currentXPTotal;
     }

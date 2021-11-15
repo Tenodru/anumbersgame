@@ -61,7 +61,7 @@ public class StatsDisplay : MonoBehaviour
     /// Updates the XP display.
     /// </summary>
     /// <param name="amount"></param>
-    public virtual void ChangeXPDisplay(int amount, int curLevel)
+    public virtual void ChangeXPDisplay(float amount, int curLevel)
     {
         percentage = (float)amount / (float)playerStats.GetReqXPForLevel();
 
