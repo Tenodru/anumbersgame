@@ -188,6 +188,8 @@ public class UpgradeHandler : MonoBehaviour
     public void UpgradeHP()
     {
         hpGainLevel += 1;
-
+        stats.IncreaseBaseHealthPercentage(hpGainPerLevel);
+        references.hpLevel.text = hpGainLevel.ToString();
     }
+
 }

@@ -19,20 +19,29 @@ public class StatsDisplay : MonoBehaviour
     public BarOrientation orientationXP;
     [Tooltip("This character's xp display element.")]
     public DisplayElementBar xpDisplay;
+    [Tooltip("This character's XP bar.")]
+    public Slider xpDisplayBar;
+    [Tooltip("This character's currentLevel label.")]
+    public TextMeshProUGUI currentLevelLabel;
+    [Tooltip("This character's level progress label.")]
+    public TextMeshProUGUI xpProgressLabel;
 
     [Header("Health Display")]
     [Tooltip("The orientation of this Display.")]
     public BarOrientation orientationHP;
     [Tooltip("This character's health display element.")]
     public DisplayElementBar hpDisplay;
-    [Tooltip("This character's HP display element bar.")]
+    [Tooltip("This character's HP bar.")]
     public Slider healthDisplayBar;
     [Tooltip("This character's currentHP label.")]
     public TextMeshProUGUI currentHealthLabel;
     [Tooltip("This character's maxHP label.")]
     public TextMeshProUGUI maxHealthLabel;
+    [Tooltip("The max width of this character's HP bar.")]
+    public float healthBarMaxWidth;
 
     float healthBarWidth;
+    float curMaxHealth;
 
     float percentage;
     float barChange;
@@ -45,6 +54,8 @@ public class StatsDisplay : MonoBehaviour
     {
         OnStart();
     }
+
+    // Fuel -------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Updates the fuel display.
@@ -67,10 +78,20 @@ public class StatsDisplay : MonoBehaviour
         }
     }
 
+    // XP and Levels -------------------------------------------------------------------------------------------
+
+    public virtual void UpdateXPBar(float barValue)
+    {
+        xpDisplayBar.value = barValue;
+        currentLevelLabel.text = "Level: " + playerStats.GetCurrentLevel().ToString();
+        xpProgressLabel.text = (Mathf.Round(playerStats.GetLevelProgress(true) * 100) / 100).ToString() + "%";
+    }
+
     /// <summary>
     /// Updates the XP display.
     /// </summary>
     /// <param name="amount"></param>
+    [System.Obsolete("Deprecated. Use UpdateXPBar with Slider instead.")]
     public virtual void ChangeXPDisplay(float amount, int curLevel)
     {
         percentage = (float)amount / (float)playerStats.GetReqXPForLevel();
@@ -87,13 +108,45 @@ public class StatsDisplay : MonoBehaviour
         }
     }
 
+    // Health -------------------------------------------------------------------------------------------
+
     public virtual void UpdateHealthBar(float barValue)
     {
         healthDisplayBar.value = barValue;
         currentHealthLabel.text = playerStats.GetCurrentHealth().ToString();
     }
 
-    public virtual void UpdateMaxHealth(float value)
+    public virtual void UpdateMaxHealth()
+    {
+        ResizeHealthBar();
+        UpdateMaxHealthLabel();
+    }
+
+    public virtual void ResizeHealthBar()
+    {
+        healthBarWidth = healthDisplayBar.GetComponent<RectTransform>().sizeDelta.x;
+        float percentChange = (Mathf.Abs(playerStats.GetMaxHealth() - curMaxHealth) / curMaxHealth) / 2.0f;
+        float flatChange = percentChange * healthBarWidth;
+        Debug.Log("curMaxHealth: " + curMaxHealth);
+        Debug.Log("Percent Change: " + percentChange);
+        Debug.Log("Flat Change: " + flatChange);
+
+        // If the width increase would bring the bar past max, resize up to max.
+        if (healthBarWidth + flatChange > healthBarMaxWidth)
+        {
+            healthBarWidth = healthBarMaxWidth;
+            healthDisplayBar.GetComponent<RectTransform>().sizeDelta = new Vector2(healthBarWidth, healthDisplayBar.GetComponent<RectTransform>().sizeDelta.y);
+        }
+        else
+        {
+            healthBarWidth += flatChange;
+            healthDisplayBar.GetComponent<RectTransform>().sizeDelta = new Vector2(healthBarWidth, healthDisplayBar.GetComponent<RectTransform>().sizeDelta.y);
+        }
+
+        curMaxHealth = playerStats.GetMaxHealth();
+    }
+
+    public virtual void UpdateMaxHealthLabel()
     {
         maxHealthLabel.text = "/ " + playerStats.GetMaxHealth().ToString();
     }
@@ -139,6 +192,7 @@ public class StatsDisplay : MonoBehaviour
         //hpDisplay = new DisplayElementBar(hpDisplay.bar, hpDisplay.label, hpDisplay.displayText, hpDisplay.background);
 
         healthBarWidth = healthDisplayBar.GetComponent<RectTransform>().sizeDelta.x;
+        curMaxHealth = playerStats.GetMaxHealth();
     }
 }
 

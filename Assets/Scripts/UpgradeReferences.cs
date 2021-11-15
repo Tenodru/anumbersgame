@@ -19,8 +19,11 @@ public class UpgradeReferences : MonoBehaviour
 
     [Header("Upgrade Indicators")]
     public GameObject xpGainButton;
+    public TextMeshProUGUI xpLevel;
     public GameObject hpGainButton;
+    public TextMeshProUGUI hpLevel;
     public GameObject fuelGainButton;
+    public TextMeshProUGUI fuelLevel;
 
     [Header("Canvas References")]
     public GameObject mainCanvas;

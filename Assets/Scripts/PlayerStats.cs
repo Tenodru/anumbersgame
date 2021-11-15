@@ -41,14 +41,14 @@ public class PlayerStats : MonoBehaviour
     private void Awake()
     {
         current = this;
+        maxHealth = startingHealth;
+        currentHealth = maxHealth;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         statDisplay = GetComponent<StatsDisplay>();
-        maxHealth = startingHealth;
-        currentHealth = maxHealth;
         xpGainMultiplier = startingXPGainMultiplier;
         fuel = startingFuel;
     }
@@ -74,7 +74,7 @@ public class PlayerStats : MonoBehaviour
             float extraXP = (currentXP + (xpAmount * xpGainMultiplier)) - reqXP;
             Debug.Log("Extra XP: " + extraXP);
             GainLevel();
-            statDisplay.ResetXPBar();
+            statDisplay.UpdateXPBar(0);
             GainXP(extraXP);
             return;
         }
@@ -83,21 +83,37 @@ public class PlayerStats : MonoBehaviour
             return;
         }
         currentXP += (xpAmount * xpGainMultiplier);
-        statDisplay.ChangeXPDisplay((xpAmount * xpGainMultiplier), currentLevel);
+        statDisplay.UpdateXPBar((currentXP / reqXP) * 100);
+        //statDisplay.ChangeXPDisplay((xpAmount * xpGainMultiplier), currentLevel);
         // Do other regular xp gain stuff.
         
     }
 
     /// <summary>
-    /// Gets the total required amount of XP for the specified level. If no level is specified, uses the current level.
+    /// Gets the total required amount of XP for the specified level. If no level is specified, uses the next level.
     /// </summary>
     /// <param name="curLevel"></param>
     /// <returns></returns>
     public float GetReqXPForLevel(int curLevel = 0)
     {
         if (curLevel == 0)
-            curLevel = currentLevel;
-        return 10 * Mathf.Pow(curLevel, 2);
+            curLevel = currentLevel + 1;
+        //return 10 * Mathf.Pow(curLevel, 2);
+        return 10 * Mathf.Pow((1 + 0.2f), curLevel);
+    }
+
+    /// <summary>
+    /// Gets the current progress or percentage towards the next level.
+    /// </summary>
+    /// <param name="asPercent">If true, returns progress as a percent. False by default.</param>
+    /// <returns></returns>
+    public float GetLevelProgress(bool asPercent = false)
+    {
+        if (asPercent)
+        {
+            return (currentXP / GetReqXPForLevel() * 100);
+        }
+        return currentXP / GetReqXPForLevel();
     }
 
     /// <summary>
@@ -223,6 +239,7 @@ public class PlayerStats : MonoBehaviour
         float amount = maxHealth;
         maxHealth = startingHealth * (1 + healthBonus);
         amount = maxHealth - amount;
+        statDisplay.UpdateMaxHealth();
 
         if (heal)
         {

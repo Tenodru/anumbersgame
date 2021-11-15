@@ -115,7 +115,7 @@ MonoBehaviour:
   charVelocity: 2
   damage: 5
   projectileWeaknesses: 04000000
-  enemyXP: 5
+  enemyXP: 14
   enemyKilled:
     m_PersistentCalls:
       m_Calls: []
