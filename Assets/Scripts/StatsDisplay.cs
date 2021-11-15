@@ -13,6 +13,10 @@ public class StatsDisplay : MonoBehaviour
     public BarOrientation orientationFuel;
     [Tooltip("This character's fuel display element.")]
     public DisplayElementBar fuelDisplay;
+    [Tooltip("This character's fuel bar.")]
+    public Slider fuelBar;
+    [Tooltip("This character's fuel level label.")]
+    public TextMeshProUGUI fuelLevelLabel;
 
     [Header("XP Display")]
     [Tooltip("The orientation of this Display.")]
@@ -57,10 +61,18 @@ public class StatsDisplay : MonoBehaviour
 
     // Fuel -------------------------------------------------------------------------------------------
 
+    public virtual void UpdateFuelBar(float barValue)
+    {
+        Debug.Log("fuel value: " + barValue);
+        fuelBar.value = barValue;
+        fuelLevelLabel.text = playerStats.fuel.ToString();
+    }
+
     /// <summary>
     /// Updates the fuel display.
     /// </summary>
     /// <param name="amount"></param>
+    [System.Obsolete("Deprecated. Use UpdateXPBar with Slider instead.")]
     public virtual void ChangeFuelDisplay(int amount, int curFuel)
     {
         percentage = (float) amount / (float) playerStats.maxFuel;

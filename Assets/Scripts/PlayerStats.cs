@@ -22,12 +22,12 @@ public class PlayerStats : MonoBehaviour
     float maxHealth;
 
     [Header("Fuel")]
-    public int startingFuel = 100;
-    public int maxFuel = 100;
-    public int fuel;
+    public float startingFuel = 100;
+    public float maxFuel = 100;
+    public float fuel;
     public float fuelBonus = 0.0f;
-    public int baseFuelConsumption = 10;
-    public int fuelRefillMultiplier = 1;
+    public float baseFuelConsumption = 10;
+    public float fuelRefillMultiplier = 1;
     public float fuelRefillDelay = 1;
 
     // Other variables and references.
@@ -284,13 +284,14 @@ public class PlayerStats : MonoBehaviour
     {
         if (fuel + amount > maxFuel)
         {
-            statDisplay.ChangeFuelDisplay((maxFuel - amount), maxFuel);
+            //statDisplay.ChangeFuelDisplay((maxFuel - amount), maxFuel);
+            statDisplay.UpdateFuelBar(100);
             fuel = maxFuel;
             return;
         }
         fuel += amount;
-        statDisplay.ChangeFuelDisplay(amount, fuel);
-        Debug.Log("Player Fuel: " + fuel);
+        //statDisplay.ChangeFuelDisplay(amount, fuel);
+        statDisplay.UpdateFuelBar((fuel / maxFuel) * 100);
     }
 
     /// <summary>

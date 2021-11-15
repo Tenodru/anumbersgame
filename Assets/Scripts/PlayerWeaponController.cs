@@ -54,7 +54,7 @@ public class PlayerWeaponController : MonoBehaviour
         {
             // Read type sequence.
             string typeSequence = typeSystem.GetTypeSequence();
-            int curFuel = stats.fuel;
+            float curFuel = stats.fuel;
 
             // Don't fire if nothing is loaded, or if the fuel consumption would be higher than the fuel we currently have.
             if (typeSequence == "" || (curFuel -= stats.baseFuelConsumption * typeSequence.Length) < 0)
@@ -78,9 +78,10 @@ public class PlayerWeaponController : MonoBehaviour
             }
 
             // Consume fuel based on length of typeSequence.
-            int change = stats.baseFuelConsumption * typeSequence.Length;
-            stats.fuel = stats.fuel - change;
-            statDisplay.ChangeFuelDisplay(-change, stats.fuel);
+            float change = stats.baseFuelConsumption * typeSequence.Length;
+            stats.fuel -= change;
+            statDisplay.UpdateFuelBar(stats.fuel / stats.maxFuel * 100);
+            Debug.Log("Fired fuel: " + (stats.fuel / stats.maxFuel * 100));
 
             Debug.Log("Fired weapon.");
             firedWeapon.Invoke();
@@ -112,16 +113,18 @@ public class PlayerWeaponController : MonoBehaviour
         if (timer >= stats.fuelRefillDelay)
         {
             timer = 0f;
-            int change = (1 * stats.fuelRefillMultiplier);
+            float change = (1 * stats.fuelRefillMultiplier);
             if (stats.fuel + change > stats.maxFuel)
             {
-                statDisplay.ChangeFuelDisplay(stats.maxFuel - stats.fuel, stats.maxFuel);
+                //statDisplay.ChangeFuelDisplay(stats.maxFuel - stats.fuel, stats.maxFuel);
+                statDisplay.UpdateFuelBar(100);
                 stats.fuel = stats.maxFuel;
             }
             else
             {
                 stats.fuel += change;
-                statDisplay.ChangeFuelDisplay(change, stats.fuel);
+                //statDisplay.ChangeFuelDisplay(change, stats.fuel);
+                statDisplay.UpdateFuelBar(stats.fuel / stats.maxFuel * 100);
             }
         }
     }
