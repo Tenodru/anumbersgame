@@ -21,6 +21,7 @@ public class UpgradeHandler : MonoBehaviour
 
     // Coroutine variables.
     Coroutine upgradeIndicatorCo;
+    Coroutine upgradeScreenIndicatorCo;
     Coroutine xpCo;
     Coroutine hpCo;
     Coroutine fuelCo;
@@ -49,6 +50,7 @@ public class UpgradeHandler : MonoBehaviour
         {
             canUpgrade = true;
             references.upgradePointsIndicator.SetActive(true);
+            references.upgradePointsIndicatorText.text = stats.upgradePoints.ToString();
             FadeObjectCycle(UpgradeReferences.current.upgradePointsIndicator, upgradeIndicatorCo);
         }
         else
@@ -65,6 +67,9 @@ public class UpgradeHandler : MonoBehaviour
                 references.xpGainButton.SetActive(true);
                 references.hpGainButton.SetActive(true);
                 references.fuelGainButton.SetActive(true);
+                references.upgradeScreenPointsIndicator.SetActive(true);
+                references.upgradeScreenPointsIndicatorText.text = stats.upgradePoints.ToString();
+                FadeObjectCycle(UpgradeReferences.current.upgradeScreenPointsIndicator, upgradeScreenIndicatorCo);
                 FadeObjectCycle(UpgradeReferences.current.xpGainButton, xpCo);
                 FadeObjectCycle(UpgradeReferences.current.hpGainButton, hpCo);
                 FadeObjectCycle(UpgradeReferences.current.fuelGainButton, fuelCo);
@@ -74,12 +79,15 @@ public class UpgradeHandler : MonoBehaviour
                 references.xpGainButton.SetActive(false);
                 references.hpGainButton.SetActive(false);
                 references.fuelGainButton.SetActive(false);
+                references.upgradeScreenPointsIndicator.SetActive(false);
                 if (xpCo != null)
                     StopCoroutine(xpCo);
                 if (hpCo != null)
                     StopCoroutine(hpCo);
                 if (fuelCo != null)
                     StopCoroutine(fuelCo);
+                if (upgradeScreenIndicatorCo != null)
+                    StopCoroutine(upgradeScreenIndicatorCo);
             }
         }
         else
@@ -90,6 +98,8 @@ public class UpgradeHandler : MonoBehaviour
                 StopCoroutine(hpCo);
             if (fuelCo != null)
                 StopCoroutine(fuelCo);
+            if (upgradeScreenIndicatorCo != null)
+                StopCoroutine(upgradeScreenIndicatorCo);
         }
     }
 
