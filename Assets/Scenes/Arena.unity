@@ -496,6 +496,34 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.7169812
       objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1607899983}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeFuel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UpgradeHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
 --- !u!224 &48531738 stripped
@@ -7108,6 +7136,34 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.7169812
       objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1607899983}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeXP
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UpgradeHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462993510711729141, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d89932ec28614bdcbd14f93c5fd40ea, type: 3}
 --- !u!224 &1258301619 stripped
@@ -8911,12 +8967,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xpGainLevel: 0
-  xpGainPerLevel: 0
+  xpGainPerLevel: 0.2
   hpGainLevel: 0
   hpGainPerLevel: 0.25
   fuelGainLevel: 0
-  fuelGainPerLevel: 0
-  canUpgrade: 1
+  fuelGainPerLevel: 0.1
+  canUpgrade: 0
   upgradeScreenOpen: 0
 --- !u!1001 &1618937384
 PrefabInstance:

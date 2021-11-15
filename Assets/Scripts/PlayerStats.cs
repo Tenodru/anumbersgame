@@ -30,6 +30,10 @@ public class PlayerStats : MonoBehaviour
     public float fuelRefillMultiplier = 1;
     public float fuelRefillDelay = 1;
 
+    [Header("Weapon")]
+    public float startingProjSpeed = 6;
+    public float projSpeed = 6;
+
     // Other variables and references.
     public static PlayerStats current;
     StatsDisplay statDisplay;
@@ -51,6 +55,7 @@ public class PlayerStats : MonoBehaviour
         statDisplay = GetComponent<StatsDisplay>();
         xpGainMultiplier = startingXPGainMultiplier;
         fuel = startingFuel;
+        projSpeed = startingProjSpeed;
     }
 
     // Update is called once per frame
@@ -280,7 +285,7 @@ public class PlayerStats : MonoBehaviour
     /// Player gains Fuel. Fuel is increased by the specified amount.
     /// </summary>
     /// <param name="amount">The amount to increase player fuel by.</param>
-    public void GainFuel(int amount)
+    public void GainFuel(float amount)
     {
         if (fuel + amount > maxFuel)
         {
@@ -299,9 +304,27 @@ public class PlayerStats : MonoBehaviour
     /// </summary>
     /// <param name="amount">The amount to increase maxFuel by.</param>
     /// <param name="replenish">Whether player fuel should be replenished for the same amount. True by default.</param>
-    public void IncreaseMaxFuel(int amount, bool replenish = true)
+    public void IncreaseMaxFuel(float amount, bool replenish = true)
     {
         maxFuel += amount;
+        if (replenish)
+        {
+            GainFuel(amount);
+        }
+    }
+
+    /// <summary>
+    /// Increases player base max fuel by the specified percentagge.
+    /// </summary>
+    /// <param name="percentage"></param>
+    /// <param name="replenish"></param>
+    public void IncreaseMaxFuelPercentage(float percentage, bool replenish = true)
+    {
+        fuelBonus += percentage;
+        float amount = maxFuel;
+        maxFuel = startingFuel * (1 + fuelBonus);
+        amount = maxFuel - amount;
+
         if (replenish)
         {
             GainFuel(amount);

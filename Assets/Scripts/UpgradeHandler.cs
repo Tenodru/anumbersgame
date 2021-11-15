@@ -190,6 +190,23 @@ public class UpgradeHandler : MonoBehaviour
         hpGainLevel += 1;
         stats.IncreaseBaseHealthPercentage(hpGainPerLevel);
         references.hpLevel.text = hpGainLevel.ToString();
+        stats.upgradePoints--;
+    }
+
+    public void UpgradeXP()
+    {
+        xpGainLevel += 1;
+        stats.IncreaseXPGain(xpGainPerLevel);
+        references.xpLevel.text = xpGainLevel.ToString();
+        stats.upgradePoints--;
+    }
+
+    public void UpgradeFuel()
+    {
+        fuelGainLevel += 1;
+        stats.IncreaseMaxFuelPercentage(fuelGainPerLevel);
+        references.fuelLevel.text = fuelGainLevel.ToString();
+        stats.upgradePoints--;
     }
 
 }

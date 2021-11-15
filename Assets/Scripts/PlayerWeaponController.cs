@@ -68,13 +68,13 @@ public class PlayerWeaponController : MonoBehaviour
                 compoundProj.GetComponent<ProjectileCompoundNumber>().CreateCompoundNumber(typeSequence);
                 compoundProj.GetComponent<ProjectileCompoundNumber>().team = Teams.Player;
                 compoundProj.GetComponent<ProjectileCompoundNumber>().originPlayer = GetComponent<Player>();
-                compoundProj.GetComponent<ProjectileCompoundNumber>().baseSpeed = 4;
+                compoundProj.GetComponent<ProjectileCompoundNumber>().baseSpeed = stats.projSpeed;
             }
             else {
                 GameObject newProj = Instantiate(numberProjectiles[int.Parse(typeSequence)], position: firePoint.position, Quaternion.identity);
                 newProj.GetComponent<ProjectileNumber>().team = Teams.Player;
                 newProj.GetComponent<ProjectileNumber>().originPlayer = GetComponent<Player>();
-                newProj.GetComponent<ProjectileNumber>().baseSpeed = 4;
+                newProj.GetComponent<ProjectileNumber>().baseSpeed = stats.projSpeed;
             }
 
             // Consume fuel based on length of typeSequence.
