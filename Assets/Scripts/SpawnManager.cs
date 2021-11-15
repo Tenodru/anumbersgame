@@ -177,6 +177,7 @@ public class SpawnManager : MonoBehaviour
         GameObject newEnemy1 = Instantiate(enemyToSpawn.enemyChar, pos, rot);
         newEnemy1.GetComponent<EnemySwarmerBehavior>().angle = Random.Range(0, 50);
         newEnemy1.GetComponent<EnemySwarmerBehavior>().radius = Random.Range(6, 10);
+        newEnemy1.layer = LayerMask.NameToLayer("Objects");
 
         currentEnemyCount += 1;
         spawnBudget -= enemyToSpawn.enemySpawnCost;

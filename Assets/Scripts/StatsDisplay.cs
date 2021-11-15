@@ -42,7 +42,7 @@ public class StatsDisplay : MonoBehaviour
     /// <param name="amount"></param>
     public virtual void ChangeFuelDisplay(int amount, int curFuel)
     {
-        percentage = (float) amount / (float) weaponControl.maxFuel;
+        percentage = (float) amount / (float) playerStats.maxFuel;
         //Debug.Log("Percentage:" + percentage);
 
         if (orientationFuel == BarOrientation.Vertical)
@@ -110,7 +110,7 @@ public class StatsDisplay : MonoBehaviour
     public virtual void OnStart()
     {
         weaponControl = GetComponent<PlayerWeaponController>();
-        playerStats = GetComponent<PlayerStats>();
+        playerStats = PlayerStats.current;
         fuelDisplay = new DisplayElementBar(fuelDisplay.bar, fuelDisplay.label, fuelDisplay.displayText, fuelDisplay.background);
         xpDisplay = new DisplayElementBar(xpDisplay.bar, xpDisplay.label, xpDisplay.displayText, xpDisplay.background);
         ResetXPBar();

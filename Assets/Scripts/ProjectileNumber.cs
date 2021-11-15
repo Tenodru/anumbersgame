@@ -9,7 +9,6 @@ public class ProjectileNumber : ProjectileStandard
 
     // Other projectile characteristics.
 
-
     public virtual void Update()
     {
         transform.position = transform.position + GetMoveDirection() * baseSpeed * Time.deltaTime;

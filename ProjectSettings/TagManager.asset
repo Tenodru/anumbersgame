@@ -10,11 +10,12 @@ TagManager:
   - NumberHandler
   - SpawnArea
   - Enemy
+  - UpgradeButton
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Objects
   - Water
   - UI
   - 

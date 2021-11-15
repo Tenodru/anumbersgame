@@ -7,11 +7,6 @@ public class PlayerWeaponController : MonoBehaviour
 {
     [Header("Weapon Attributes")]
     [SerializeField] int startTypeLimit = 1;
-    public int startingFuel = 100;
-    public int maxFuel = 100;
-    public int baseFuelConsumption = 10;
-    public int fuelRefillMultiplier = 1;
-    public float fuelRefillDelay = 1;
     [HideInInspector] public int fuel;
 
     [Header("References")]
@@ -26,6 +21,7 @@ public class PlayerWeaponController : MonoBehaviour
     // Other weapon attributes.
     int curTypeLimit;
     List<GameObject> numberProjectiles;
+    PlayerStats stats;
     StatsDisplay statDisplay;
     float timer;
 
@@ -33,10 +29,12 @@ public class PlayerWeaponController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stats = PlayerStats.current;
         statDisplay = GetComponent<StatsDisplay>();
         numberProjectiles = numberHandler.numberProjectiles;
         curTypeLimit = startTypeLimit;
-        fuel = startingFuel;
+
+        fuel = stats.startingFuel;
     }
 
     // Update is called once per frame
@@ -61,7 +59,7 @@ public class PlayerWeaponController : MonoBehaviour
             int curFuel = fuel;
 
             // Don't fire if nothing is loaded, or if the fuel consumption would be higher than the fuel we currently have.
-            if (typeSequence == "" || (curFuel -= baseFuelConsumption * typeSequence.Length) < 0)
+            if (typeSequence == "" || (curFuel -= stats.baseFuelConsumption * typeSequence.Length) < 0)
             {
                 return;
             }
@@ -82,7 +80,7 @@ public class PlayerWeaponController : MonoBehaviour
             }
 
             // Consume fuel based on length of typeSequence.
-            int change = baseFuelConsumption * typeSequence.Length;
+            int change = stats.baseFuelConsumption * typeSequence.Length;
             fuel = fuel - change;
             statDisplay.ChangeFuelDisplay(-change, fuel);
 
@@ -113,14 +111,14 @@ public class PlayerWeaponController : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= fuelRefillDelay)
+        if (timer >= stats.fuelRefillDelay)
         {
             timer = 0f;
-            int change = (1 * fuelRefillMultiplier);
-            if (fuel + change > maxFuel)
+            int change = (1 * stats.fuelRefillMultiplier);
+            if (fuel + change > stats.maxFuel)
             {
-                statDisplay.ChangeFuelDisplay(maxFuel - fuel, maxFuel);
-                fuel = maxFuel;
+                statDisplay.ChangeFuelDisplay(stats.maxFuel - fuel, stats.maxFuel);
+                fuel = stats.maxFuel;
             }
             else
             {

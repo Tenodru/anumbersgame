@@ -11,17 +11,31 @@ public class PlayerStats : MonoBehaviour
     public int xpGainMultiplier = 1;
     public int startingLevel = 1;
     public bool canGainXP = true;
+    public int upgradePoints = 0;
 
     [Header("Health")]
     public float startingHealth = 100;
     float currentHealth;
     float maxHealth;
 
+    [Header("Fuel")]
+    public int startingFuel = 100;
+    public int maxFuel = 100;
+    public int baseFuelConsumption = 10;
+    public int fuelRefillMultiplier = 1;
+    public float fuelRefillDelay = 1;
+
     // Other variables and references.
+    public static PlayerStats current;
     StatsDisplay statDisplay;
     int currentXP;
     int currentXPTotal;
     int currentLevel;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +99,7 @@ public class PlayerStats : MonoBehaviour
     {
         currentLevel++;
         currentXP = 0;
+        upgradePoints++;
         // Do other level-up stuff.
     }
 
