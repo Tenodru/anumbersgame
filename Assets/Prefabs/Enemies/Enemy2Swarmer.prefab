@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8650809582456686377}
   - component: {fileID: 8650809582456686378}
   - component: {fileID: 8650809582456686375}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy2Swarmer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

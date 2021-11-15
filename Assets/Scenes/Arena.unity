@@ -7085,6 +7085,7 @@ MonoBehaviour:
   isPaused: 0
   timeLastPaused: 0
   totalTimePaused: 0
+  mainCam: {fileID: 1105908997}
 --- !u!1 &1472552654
 GameObject:
   m_ObjectHideFlags: 0
@@ -7554,6 +7555,7 @@ MonoBehaviour:
   xpGainButton: {fileID: 1417999319}
   hpGainButton: {fileID: 744512248}
   fuelGainButton: {fileID: 310745820}
+  mainCanvas: {fileID: 1164756858}
   upgradeUICanvas: {fileID: 1268426966}
 --- !u!114 &1607899983
 MonoBehaviour:

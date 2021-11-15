@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8222812462926824239}
   - component: {fileID: 8222812462926824227}
   - component: {fileID: 8222812462926824226}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: NumberAttack4 (Compound)
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   projectileTypes: 05000000
   disableMovement: 1
   baseSpeed: 2
+  originPlayer: {fileID: 0}
 --- !u!50 &8222812462926824227
 Rigidbody2D:
   serializedVersion: 4

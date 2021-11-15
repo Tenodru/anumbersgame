@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 535240956400257347}
   - component: {fileID: -4870250235891950381}
   - component: {fileID: 717078787625217278}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CompoundNumberProjectile
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425f94eff119cfe46826932bb938d2b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
+  projectileTypes: 
   disableMovement: 0
   baseSpeed: 2
-  team: 0
+  originPlayer: {fileID: 0}
   numberHandler: {fileID: 0}
 --- !u!61 &-4870250235891950381
 BoxCollider2D:

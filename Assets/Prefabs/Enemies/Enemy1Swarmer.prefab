@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2876026830435462095}
   - component: {fileID: 2876026830435462080}
   - component: {fileID: 2876026830435462093}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy1Swarmer
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -17,6 +17,7 @@ public class UpgradeReferences : MonoBehaviour
     public GameObject fuelGainButton;
 
     [Header("Canvas References")]
+    public GameObject mainCanvas;
     public GameObject upgradeUICanvas; 
 
     private void Awake()

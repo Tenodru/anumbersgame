@@ -151,6 +151,7 @@ public class UpgradeHandler : MonoBehaviour
     public void OpenUpgradeScreen()
     {
         references.upgradeUICanvas.SetActive(true);
+        references.mainCanvas.SetActive(false);
         upgradeScreenOpen = true;
     }
 
@@ -158,5 +159,6 @@ public class UpgradeHandler : MonoBehaviour
     {
         upgradeScreenOpen = false;
         references.upgradeUICanvas.SetActive(false);
+        references.mainCanvas.SetActive(true);
     }
 }
