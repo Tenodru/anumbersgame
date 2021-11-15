@@ -38,6 +38,8 @@ public class PlayerWeaponController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseController.current.isPaused)
+            return;
         Fire();
         UpdateFuel();
     }

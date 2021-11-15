@@ -46,19 +46,29 @@ public class UpgradeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (stats.upgradePoints > 0)
-        {
-            canUpgrade = true;
-            references.upgradePointsIndicator.SetActive(true);
-            references.upgradePointsIndicatorText.text = stats.upgradePoints.ToString();
-            FadeObjectCycle(UpgradeReferences.current.upgradePointsIndicator, upgradeIndicatorCo);
-        }
-        else
+        if (PauseController.current.isPaused)
         {
             if (upgradeIndicatorCo != null)
                 StopCoroutine(upgradeIndicatorCo);
             references.upgradePointsIndicator.SetActive(false);
         }
+        else
+        {
+            if (stats.upgradePoints > 0)
+            {
+                canUpgrade = true;
+                references.upgradePointsIndicator.SetActive(true);
+                references.upgradePointsIndicatorText.text = stats.upgradePoints.ToString();
+                FadeObjectCycle(UpgradeReferences.current.upgradePointsIndicator, upgradeIndicatorCo);
+            }
+            else
+            {
+                if (upgradeIndicatorCo != null)
+                    StopCoroutine(upgradeIndicatorCo);
+                references.upgradePointsIndicator.SetActive(false);
+            }
+        }
+        
 
         if (upgradeScreenOpen)
         {
@@ -169,7 +179,7 @@ public class UpgradeHandler : MonoBehaviour
     public void OpenUpgradeScreen()
     {
         references.upgradeUICanvas.SetActive(true);
-        references.mainCanvas.SetActive(false);
+        //references.mainCanvas.SetActive(false);
         upgradeScreenOpen = true;
     }
 
@@ -180,7 +190,7 @@ public class UpgradeHandler : MonoBehaviour
     {
         upgradeScreenOpen = false;
         references.upgradeUICanvas.SetActive(false);
-        references.mainCanvas.SetActive(true);
+        //references.mainCanvas.SetActive(true);
     }
 
     // Base Upgrades -------------------------------------------------------------------------------------------

@@ -35,17 +35,19 @@ public class PauseController : MonoBehaviour
         {
             if (!upgradeHandler.upgradeScreenOpen)
             {
-                mainCam.cullingMask &= ~(1 << LayerMask.NameToLayer("Objects"));
+                //mainCam.cullingMask &= ~(1 << LayerMask.NameToLayer("Objects"));
                 upgradeHandler.OpenUpgradeScreen();
                 timeLastPaused = Time.deltaTime;
                 Time.timeScale = 0;
+                isPaused = true;
             }
             else
             {
-                mainCam.cullingMask |= 1 << LayerMask.NameToLayer("Objects");
+                //mainCam.cullingMask |= 1 << LayerMask.NameToLayer("Objects");
                 upgradeHandler.CloseUpgradeScreen();
                 totalTimePaused += Time.deltaTime - timeLastPaused;
                 Time.timeScale = 1;
+                isPaused = false;
             }
         }
     }

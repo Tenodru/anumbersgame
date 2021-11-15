@@ -13,6 +13,8 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseController.current.isPaused)
+            return;
         RotatePlayer();
     }
 
