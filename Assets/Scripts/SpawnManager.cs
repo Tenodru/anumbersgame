@@ -41,6 +41,8 @@ public class SpawnManager : MonoBehaviour
     int exampleSpawnTier;
     int exampleSpawnBudget;
 
+    // Other references.
+    public static SpawnManager current;
     SpawnReferences spawnReferences;
 
     // Additional spawn variables.
@@ -55,6 +57,11 @@ public class SpawnManager : MonoBehaviour
 
     int spawnBudget = 0;
     int spawnBudgetThisWave = 0;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     private void Start()
     {

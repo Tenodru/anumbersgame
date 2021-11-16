@@ -198,10 +198,6 @@ public class StatsDisplay : MonoBehaviour
     {
         weaponControl = GetComponent<PlayerWeaponController>();
         playerStats = PlayerStats.current;
-        fuelDisplay = new DisplayElementBar(fuelDisplay.bar, fuelDisplay.label, fuelDisplay.displayText, fuelDisplay.background);
-        xpDisplay = new DisplayElementBar(xpDisplay.bar, xpDisplay.label, xpDisplay.displayText, xpDisplay.background);
-        ResetXPBar();
-        //hpDisplay = new DisplayElementBar(hpDisplay.bar, hpDisplay.label, hpDisplay.displayText, hpDisplay.background);
 
         healthBarWidth = healthDisplayBar.GetComponent<RectTransform>().sizeDelta.x;
         curMaxHealth = playerStats.GetMaxHealth();

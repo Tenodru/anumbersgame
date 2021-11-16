@@ -17,12 +17,10 @@ public class EnemySwarmerBehavior : EnemyBehavior
 
     float alpha = 1.0f;
 
-    SpawnManager spawnManager;
-
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        spawnManager = FindObjectOfType<SpawnManager>();
+        base.Start();
         StartCoroutine(DecreaseRadius(invokeTimeRadius));
         StartCoroutine(IncreaseScaler(invokeTimeScaler));
     }
@@ -84,39 +82,14 @@ public class EnemySwarmerBehavior : EnemyBehavior
         }
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collider)
+    public override void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
-        {
-            // Decrease player health by this enemy's damage stat.
-            collider.GetComponent<Player>().playerStats.TakeDamage(damage);
-            Debug.Log("Player took " + damage + " damage from " + gameObject.name);
-            enemyKilled.Invoke();
-            spawnManager.UpdateEnemyCount(-1);
-            Destroy(this.gameObject);
-        }
+        base.OnTriggerEnter2D(collider);
+    }
 
-        if (collider.gameObject.tag == "Projectile")
-        {
-            //Debug.Log(this.gameObject.name + " hit by projectile!");
-            // Check to see if projectile is from player.
-            if (collider.GetComponent<ProjectileStandard>().team == Teams.Player)
-            {
-                // Check if projectile has a type that matches one of this enemy's weaknesses.
-                for (int i = 0; i < collider.GetComponent<ProjectileStandard>().projectileTypes.Count; i++)
-                {
-                    if (projectileWeaknesses.Contains(collider.GetComponent<ProjectileStandard>().projectileTypes[i]))
-                    {
-                        //Debug.Log(this.gameObject.name + " successfully destroyed by player projectile!");
-                        enemyKilled.Invoke();
-                        collider.GetComponent<ProjectileNumber>().originPlayer.playerStats.GainXP(enemyXP);             // Reward player with XP.
-                        spawnManager.UpdateEnemyCount(-1);
-                        Destroy(collider.gameObject);
-                        Destroy(this.gameObject);
-                    }
-                }
-            }
-        }
+    public override void TakeDamage(float damage, GameObject source)
+    {
+        base.TakeDamage(damage, source);
     }
 
     /*

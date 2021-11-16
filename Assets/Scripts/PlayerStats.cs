@@ -33,6 +33,9 @@ public class PlayerStats : MonoBehaviour
     [Header("Weapon")]
     public float startingProjSpeed = 6;
     public float projSpeed = 6;
+    public float startingDamage = 1;
+    public float damage = 1;
+    public float damageBonus = 0.0f;
 
     // Other variables and references.
     public static PlayerStats current;
@@ -56,6 +59,7 @@ public class PlayerStats : MonoBehaviour
         xpGainMultiplier = startingXPGainMultiplier;
         fuel = startingFuel;
         projSpeed = startingProjSpeed;
+        damage = startingDamage;
     }
 
     // Update is called once per frame
@@ -73,11 +77,9 @@ public class PlayerStats : MonoBehaviour
     public void GainXP(float xpAmount)
     {
         float reqXP = GetReqXPForLevel();
-        Debug.Log("Gained XP: " + xpAmount);
         if (currentXP + (xpAmount * xpGainMultiplier) >= reqXP)
         {
             float extraXP = (currentXP + (xpAmount * xpGainMultiplier)) - reqXP;
-            Debug.Log("Extra XP: " + extraXP);
             GainLevel();
             statDisplay.UpdateXPBar(0);
             GainXP(extraXP);
@@ -177,7 +179,7 @@ public class PlayerStats : MonoBehaviour
     /// <param name="damage">The amount to decrease player health by.</param>
     public void TakeDamage (float damage)
     {
-        if (currentHealth - damage < 0)
+        if (currentHealth - damage <= 0)
         {
             //statDisplay.ChangeHealthDisplay(-currentHealth, 0);
             statDisplay.UpdateHealthBar(0);
@@ -187,7 +189,6 @@ public class PlayerStats : MonoBehaviour
         currentHealth -= damage;
         //statDisplay.ChangeHealthDisplay(-damage, currentHealth);
         statDisplay.UpdateHealthBar((currentHealth / maxHealth) * 100);
-        Debug.Log("Player Health: " + currentHealth);
     }
 
     /// <summary>
@@ -216,7 +217,6 @@ public class PlayerStats : MonoBehaviour
         currentHealth += amount;
         //statDisplay.ChangeHealthDisplay(amount, currentHealth);
         statDisplay.UpdateHealthBar((currentHealth / maxHealth) * 100);
-        Debug.Log("Player Health: " + currentHealth);
     }
 
     /// <summary>
