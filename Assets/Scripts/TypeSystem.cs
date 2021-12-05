@@ -105,6 +105,89 @@ public class TypeSystem : MonoBehaviour
                 Debug.Log("Sequence: " + typeSequence);
             }
         }
+        else if (typeCount == player.GetCurTypeLimit())
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                ClearTypeSequence();
+                typeSequence += "0";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ClearTypeSequence();
+                typeSequence += "1";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ClearTypeSequence();
+                typeSequence += "2";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                ClearTypeSequence();
+                typeSequence += "3";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                ClearTypeSequence();
+                typeSequence += "4";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                ClearTypeSequence();
+                typeSequence += "5";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                ClearTypeSequence();
+                typeSequence += "6";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                ClearTypeSequence();
+                typeSequence += "7";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                ClearTypeSequence();
+                typeSequence += "8";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                ClearTypeSequence();
+                typeSequence += "9";
+                textDisplay.text = "[ " + typeSequence + " ]";
+                typeCount++;
+                Debug.Log("Sequence: " + typeSequence);
+            }
+        }
     }
 
     /// <summary>

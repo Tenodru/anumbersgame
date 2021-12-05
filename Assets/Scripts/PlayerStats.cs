@@ -77,23 +77,27 @@ public class PlayerStats : MonoBehaviour
     public void GainXP(float xpAmount)
     {
         float reqXP = GetReqXPForLevel();
-        if (currentXP + (xpAmount * xpGainMultiplier) >= reqXP)
+        float gainAmount = (xpAmount * xpGainMultiplier);
+        if (currentXP + (gainAmount) >= reqXP)
         {
             float extraXP = (currentXP + (xpAmount * xpGainMultiplier)) - reqXP;
             GainLevel();
             statDisplay.UpdateXPBar(0);
-            GainXP(extraXP);
+            currentXP += (extraXP);
+            statDisplay.UpdateXPBar((currentXP / reqXP) * 100);
+            statDisplay.GainXPIndicator(gainAmount);
             return;
         }
         if (!canGainXP)
         {
             return;
         }
-        currentXP += (xpAmount * xpGainMultiplier);
+        currentXP += (gainAmount);
         statDisplay.UpdateXPBar((currentXP / reqXP) * 100);
+        statDisplay.GainXPIndicator(gainAmount);
         //statDisplay.ChangeXPDisplay((xpAmount * xpGainMultiplier), currentLevel);
         // Do other regular xp gain stuff.
-        
+
     }
 
     /// <summary>

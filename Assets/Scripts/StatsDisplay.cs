@@ -29,6 +29,14 @@ public class StatsDisplay : MonoBehaviour
     public TextMeshProUGUI currentLevelLabel;
     [Tooltip("This character's level progress label.")]
     public TextMeshProUGUI xpProgressLabel;
+    [Tooltip("The XP amount gained indicator.")]
+    public GameObject xpGainedIndicator;
+    [Tooltip("The XP amount gained indicator reference. Used to determine position of the UI element.")]
+    public GameObject xpGainedIndicatorRef;
+    [Tooltip("The XP amount gained indicator parent object.")]
+    public GameObject xpGainedIndicatorParent;
+    [Tooltip("How long each XP gain indicator should remain on screen.")]
+    public float xpGainDuration = 2;
 
     [Header("Health Display")]
     [Tooltip("The orientation of this Display.")]
@@ -49,6 +57,10 @@ public class StatsDisplay : MonoBehaviour
 
     float percentage;
     float barChange;
+
+    float xpGainTimer;
+    Vector3 xpGainIndicatorPos;
+    GameObject xpGainIndicator;
 
     PlayerWeaponController weaponControl;
     PlayerStats playerStats;
@@ -97,6 +109,19 @@ public class StatsDisplay : MonoBehaviour
         xpDisplayBar.value = barValue;
         currentLevelLabel.text = "Level: " + playerStats.GetCurrentLevel().ToString();
         xpProgressLabel.text = (Mathf.Round(playerStats.GetLevelProgress(true) * 100) / 100).ToString() + "%";
+    }
+
+    public virtual void GainXPIndicator(float amount)
+    {
+        xpGainIndicator = Instantiate(xpGainedIndicator, xpGainIndicatorPos, new Quaternion(0,0,0,0), xpGainedIndicatorParent.transform);
+        xpGainIndicator.GetComponent<TextMeshProUGUI>().text = ("+ " + amount + " XP");
+        StartCoroutine(DelayDestroyObj(xpGainIndicator));
+    }
+
+    IEnumerator DelayDestroyObj(GameObject obj)
+    {
+        yield return new WaitForSeconds(xpGainDuration);
+        Destroy(obj);
     }
 
     /// <summary>
@@ -201,6 +226,9 @@ public class StatsDisplay : MonoBehaviour
 
         healthBarWidth = healthDisplayBar.GetComponent<RectTransform>().sizeDelta.x;
         curMaxHealth = playerStats.GetMaxHealth();
+
+        xpGainIndicatorPos = xpGainedIndicatorRef.transform.position;
+        xpGainedIndicatorRef.SetActive(false);
     }
 }
 
