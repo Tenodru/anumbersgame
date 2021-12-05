@@ -27,7 +27,10 @@ public class UpgradeReferences : MonoBehaviour
 
     [Header("Canvas References")]
     public GameObject mainCanvas;
-    public GameObject upgradeUICanvas; 
+    public GameObject upgradeUICanvas;
+
+    [Header("Tooltip References")]
+    public GameObject pauseTooltip;
 
     private void Awake()
     {

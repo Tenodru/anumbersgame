@@ -57,6 +57,7 @@ public class UpgradeHandler : MonoBehaviour
             if (stats.upgradePoints > 0)
             {
                 canUpgrade = true;
+                references.pauseTooltip.SetActive(true);
                 references.upgradePointsIndicator.SetActive(true);
                 references.upgradePointsIndicatorText.text = stats.upgradePoints.ToString();
                 FadeObjectCycle(UpgradeReferences.current.upgradePointsIndicator, upgradeIndicatorCo);
@@ -66,12 +67,14 @@ public class UpgradeHandler : MonoBehaviour
                 if (upgradeIndicatorCo != null)
                     StopCoroutine(upgradeIndicatorCo);
                 references.upgradePointsIndicator.SetActive(false);
+                references.pauseTooltip.SetActive(false);
             }
         }
         
 
         if (upgradeScreenOpen)
         {
+            references.pauseTooltip.SetActive(false);
             if (stats.upgradePoints > 0)
             {
                 references.xpGainButton.SetActive(true);
