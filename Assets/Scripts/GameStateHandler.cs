@@ -146,13 +146,20 @@ public class GameStateHandler : MonoBehaviour
         }
 
         // Check if this score is higher than any of the other scores.
-        foreach (ScoreEntry entry in HighScoreManager.scores.list)
+        if (HighScoreManager.scores == null)
         {
-            if (fastScore >= entry.score)
+            newScore = true;
+        } else
+        {
+            foreach (ScoreEntry entry in HighScoreManager.scores.list)
             {
-                newScore = true;
+                if (fastScore >= entry.score)
+                {
+                    newScore = true;
+                }
             }
         }
+        
 
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
         StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));

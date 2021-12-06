@@ -48,6 +48,10 @@ public class HighScoreManager : MonoBehaviour
     /// </summary>
     public void LoadScores()
     {
+        if (scores == null)
+        {
+            return;
+        }
         ReadScores();
         for (int i = 0; i < scores.list.Count; i++)
         {
