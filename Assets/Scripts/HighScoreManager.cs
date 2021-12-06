@@ -12,11 +12,22 @@ public class HighScoreManager : MonoBehaviour
     [Header("Enter Name UI References")]
     public InputField playerName;
 
+    [Header("Score Options")]
+    public int maxScores = 10;
+
     public static ScoresList scores;
 
     private void Awake()
     {
-        current = this;
+        if (current != null && current != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            current = this;
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -37,9 +48,12 @@ public class HighScoreManager : MonoBehaviour
         scores = JsonUtility.FromJson<ScoresList>(scoresListOld);
     }
 
-    public void SaveScore()
+    /// <summary>
+    /// Save a new score to the scores list.
+    /// </summary>
+    public void SaveScore(string name)
     {
-        ScoreEntry playerScore = new ScoreEntry(playerName.text, GameStateHandler.current.playerScore);
+        ScoreEntry playerScore = new ScoreEntry(playerName.text, GameStateHandler.current.fastScore);
         scores.list.Add(playerScore);
         string json = JsonUtility.ToJson(scores);
         PlayerPrefs.SetString("scoresList", json);

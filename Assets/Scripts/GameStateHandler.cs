@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
@@ -21,15 +22,19 @@ public class GameStateHandler : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreModifier;
 
+    [Header("Post Score Screen")]
+    public GameObject postScoreScreen;
+
     [Header("Save Score Screen")]
     public GameObject saveScoreScreen;
+    public InputField playerName;
 
     [Header("Game Over UI")]
     public GameObject gameOverUI;
 
     public int currentTime;
     public int playerScore;
-    int fastScore;
+    public int fastScore;
     int lastTime = 0;
     int displayScore;
     float moveTowardsDur = 1000f;
@@ -37,6 +42,7 @@ public class GameStateHandler : MonoBehaviour
     bool addingScore = false;
     bool gameEnded = false;
     bool scoreScreenOpen = false;
+    bool newScore = false;
 
     // References
     Player player;
@@ -55,6 +61,7 @@ public class GameStateHandler : MonoBehaviour
         playerScore = 0;
         scoreScreen.SetActive(false);
         saveScoreScreen.SetActive(false);
+        newScore = false;
     }
 
     // Update is called once per frame
@@ -123,6 +130,9 @@ public class GameStateHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculates the player's final score and prepares for score display.
+    /// </summary>
     public void CalculateFinalScore()
     {
         fastScore = playerScore;
@@ -135,11 +145,26 @@ public class GameStateHandler : MonoBehaviour
             fastScore += modifier.score;
         }
 
+        // Check if this score is higher than any of the other scores.
+        foreach (ScoreEntry entry in HighScoreManager.scores.list)
+        {
+            if (fastScore >= entry.score)
+            {
+                newScore = true;
+            }
+        }
+
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
         StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
         StartCoroutine(FadeObjectIn(scoreModifier.gameObject));
     }
 
+    /// <summary>
+    /// Parses score modifiers list and displays each for 6 sec (by default).
+    /// </summary>
+    /// <param name="modifiers"></param>
+    /// <param name="time"></param>
+    /// <returns></returns>
     IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 6f)
     {
         yield return new WaitForSecondsRealtime(time);
@@ -211,18 +236,24 @@ public class GameStateHandler : MonoBehaviour
         canvasGroup.alpha = 1;
     }
 
-    IEnumerator FadeInScoreModifier(float time = 2f)
+    /// <summary>
+    /// Go to the screen after the Score screen. This can be the Save Score screen, or the Post Score screen with Restart and Main Menu options.
+    /// </summary>
+    public void PostScoreScreen()
     {
-        yield return new WaitForSecondsRealtime(time);
-        Debug.Log("Fading in.");
-        scoreModifier.GetComponent<Animator>().SetTrigger("FadeIn");
+        scoreScreen.SetActive(false);
+        if (newScore)
+        {
+            saveScoreScreen.SetActive(true);
+        } else
+        {
+            postScoreScreen.SetActive(true);
+        }
     }
 
-    IEnumerator FadeOutScoreModifier(float time = 2f)
+    public void SaveScore()
     {
-        yield return new WaitForSecondsRealtime(time);
-        Debug.Log("Fading out.");
-        scoreModifier.GetComponent<Animator>().SetTrigger("FadeOut");
+        HighScoreManager.current.SaveScore(playerName.text);
     }
 
     public void ScoreScreen()
