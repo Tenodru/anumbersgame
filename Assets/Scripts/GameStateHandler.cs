@@ -114,6 +114,7 @@ public class GameStateHandler : MonoBehaviour
             GameManager.current.elapsedTimeGame = currentTime;
             gameEnded = true;
             //StartCoroutine(FadeOutScoreModifier(0));
+            StartCoroutine(FadeObjectOut(scoreModifier.gameObject));
         }
     }
 
@@ -123,7 +124,6 @@ public class GameStateHandler : MonoBehaviour
         scoreText.text = displayScore.ToString();
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
         StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
-        //StartCoroutine(FadeInScoreModifier(0));
         StartCoroutine(FadeObjectIn(scoreModifier.gameObject));
     }
 
@@ -144,9 +144,9 @@ public class GameStateHandler : MonoBehaviour
             Debug.Log("Showing next modifier.");
             //StartCoroutine(FadeOutScoreModifier(4));
             //StartCoroutine(FadeInScoreModifier(5));
-            StartCoroutine(FadeObjectOut(scoreModifier.gameObject, waitTime: 4f));
-            StartCoroutine(FadeObjectIn(scoreModifier.gameObject, waitTime: 4f));
+            StartCoroutine(FadeObjectOut(scoreModifier.gameObject, waitTime: 5f));
             StartCoroutine(ShowScoreModifiers(modifiers));
+            StartCoroutine(FadeObjectIn(scoreModifier.gameObject, waitTime: 6));
         } else
         {
             //StartCoroutine(FadeOutScoreModifier(4));
@@ -159,7 +159,7 @@ public class GameStateHandler : MonoBehaviour
     /// </summary>
     /// <param name="dur"></param>
     /// <returns></returns>
-    IEnumerator FadeObjectOut(GameObject obj, float dur = 1f, float waitTime = 0f)
+    IEnumerator FadeObjectOut(GameObject obj, float dur = 0.5f, float waitTime = 0f)
     {
         yield return new WaitForSecondsRealtime(waitTime);
         CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
@@ -181,7 +181,7 @@ public class GameStateHandler : MonoBehaviour
     /// </summary>
     /// <param name="dur"></param>
     /// <returns></returns>
-    IEnumerator FadeObjectIn(GameObject obj, float dur = 1f, float waitTime = 0f)
+    IEnumerator FadeObjectIn(GameObject obj, float dur = 0.5f, float waitTime = 0f)
     {
         yield return new WaitForSecondsRealtime(waitTime);
         CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
