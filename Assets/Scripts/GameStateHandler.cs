@@ -113,7 +113,7 @@ public class GameStateHandler : MonoBehaviour
             gameOverUI.SetActive(true);
             GameManager.current.elapsedTimeGame = currentTime;
             gameEnded = true;
-            StartCoroutine(FadeOutScoreModifier(0));
+            //StartCoroutine(FadeOutScoreModifier(0));
         }
     }
 
@@ -122,8 +122,9 @@ public class GameStateHandler : MonoBehaviour
         displayScore = playerScore;
         scoreText.text = displayScore.ToString();
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
-        StartCoroutine(FadeInScoreModifier(0));
-        StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 1f));
+        StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
+        //StartCoroutine(FadeInScoreModifier(0));
+        StartCoroutine(FadeObjectIn(scoreModifier.gameObject));
     }
 
     IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 6f)
@@ -141,24 +142,73 @@ public class GameStateHandler : MonoBehaviour
         if (modifiers.Count > 0)
         {
             Debug.Log("Showing next modifier.");
+            //StartCoroutine(FadeOutScoreModifier(4));
+            //StartCoroutine(FadeInScoreModifier(5));
+            StartCoroutine(FadeObjectOut(scoreModifier.gameObject, waitTime: 4f));
+            StartCoroutine(FadeObjectIn(scoreModifier.gameObject, waitTime: 4f));
             StartCoroutine(ShowScoreModifiers(modifiers));
-            StartCoroutine(FadeOutScoreModifier(4));
-            StartCoroutine(FadeInScoreModifier(5));
         } else
         {
-            StartCoroutine(FadeOutScoreModifier(4));
+            //StartCoroutine(FadeOutScoreModifier(4));
+            StartCoroutine(FadeObjectOut(scoreModifier.gameObject, waitTime: 4f));
         }
+    }
+
+    /// <summary>
+    /// Fades the object alpha out to 0 over time.
+    /// </summary>
+    /// <param name="dur"></param>
+    /// <returns></returns>
+    IEnumerator FadeObjectOut(GameObject obj, float dur = 1f, float waitTime = 0f)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        float startVal = canvasGroup.alpha;
+        float time = 0;
+
+        while (time < dur)
+        {
+            canvasGroup.alpha = Mathf.Lerp(startVal, 0, time / dur);
+            time += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0;
+    }
+
+    /// <summary>
+    /// Fades the object alpha in to 1 over time.
+    /// </summary>
+    /// <param name="dur"></param>
+    /// <returns></returns>
+    IEnumerator FadeObjectIn(GameObject obj, float dur = 1f, float waitTime = 0f)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+        CanvasGroup canvasGroup = obj.GetComponent<CanvasGroup>();
+        float startVal = canvasGroup.alpha;
+        float time = 0;
+
+        while (time < dur)
+        {
+            canvasGroup.alpha = Mathf.Lerp(startVal, 1, time / dur);
+            time += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        canvasGroup.alpha = 1;
     }
 
     IEnumerator FadeInScoreModifier(float time = 2f)
     {
         yield return new WaitForSecondsRealtime(time);
+        Debug.Log("Fading in.");
         scoreModifier.GetComponent<Animator>().SetTrigger("FadeIn");
     }
 
     IEnumerator FadeOutScoreModifier(float time = 2f)
     {
         yield return new WaitForSecondsRealtime(time);
+        Debug.Log("Fading out.");
         scoreModifier.GetComponent<Animator>().SetTrigger("FadeOut");
     }
 
