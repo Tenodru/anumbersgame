@@ -264,6 +264,7 @@ public class GameStateHandler : MonoBehaviour
     public void SaveScore()
     {
         HighScoreManager.current.SaveScore(playerName.text);
+        PostScoreScreen();
     }
 
     public void ScoreScreen()

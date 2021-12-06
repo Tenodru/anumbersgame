@@ -72,6 +72,7 @@ public class HighScoreManager : MonoBehaviour
     public void ReadScores()
     {
         string scoresListOld = PlayerPrefs.GetString("scoresList");
+        Debug.Log("Scores: " + scoresListOld);
         scores = JsonUtility.FromJson<ScoresList>(scoresListOld);
     }
 
@@ -96,6 +97,7 @@ public class HighScoreManager : MonoBehaviour
         string json = JsonUtility.ToJson(scores);
         PlayerPrefs.SetString("scoresList", json);
         PlayerPrefs.Save();
+        Debug.Log("Score of " + GameStateHandler.current.fastScore + " saved.");
     }
 }
 
