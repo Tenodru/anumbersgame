@@ -57,6 +57,7 @@ public class GameStateHandler : MonoBehaviour
     {
         Time.timeScale = 1;
         player = FindObjectOfType<Player>();
+        gameEnded = false;
         gameOverUI.SetActive(false);
         playerScore = 0;
         scoreScreen.SetActive(false);

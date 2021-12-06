@@ -66,6 +66,7 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         spawnReferences = FindObjectOfType<SpawnReferences>();
+        spawnTier = 1;
     }
 
     // Update is called once per frame
