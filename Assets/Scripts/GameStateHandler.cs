@@ -257,6 +257,7 @@ public class GameStateHandler : MonoBehaviour
         } else
         {
             postScoreScreen.SetActive(true);
+            saveScoreScreen.SetActive(false);
         }
     }
 
