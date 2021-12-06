@@ -5,19 +5,15 @@ using TMPro;
 
 public class ScoreDisplayHandler : MonoBehaviour
 {
-    [Header("Score Display Elements")]
-    public ScoreEntryDisplay score1;
-    public ScoreEntryDisplay score2;
-    public ScoreEntryDisplay score3;
-    public ScoreEntryDisplay score4;
-    public ScoreEntryDisplay score5;
-    public ScoreEntryDisplay score6;
-    public ScoreEntryDisplay score7;
-    public ScoreEntryDisplay score8;
-    public ScoreEntryDisplay score9;
-    public ScoreEntryDisplay score10;
+    public static ScoreDisplayHandler current;
 
+    [Header("Score Display Elements")]
     public List<ScoreEntryDisplay> scoreDisplays;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     // Start is called before the first frame update
     void Start()
