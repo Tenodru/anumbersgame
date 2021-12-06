@@ -34,7 +34,7 @@ public class HighScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ReadScores();
+        LoadScores();
     }
 
     // Update is called once per frame
@@ -43,6 +43,18 @@ public class HighScoreManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Load scores at the start of the game, and populate high scores table.
+    /// </summary>
+    public void LoadScores()
+    {
+        ReadScores();
+
+    }
+
+    /// <summary>
+    /// Read scores from PlayerPrefs and load into scores object.
+    /// </summary>
     public void ReadScores()
     {
         string scoresListOld = PlayerPrefs.GetString("scoresList");
