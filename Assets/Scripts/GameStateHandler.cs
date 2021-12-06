@@ -82,11 +82,11 @@ public class GameStateHandler : MonoBehaviour
         {
             displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, moveTowardsDur * Time.deltaTime);
             UpdateScoreDisplay();
-
+            /*
             if (Input.GetMouseButtonDown(1))
             {
                 Player.current.GetComponent<Player>().playerStats.TakeDamage(100);
-            }
+            }*/
         }
     }
 

@@ -8444,7 +8444,7 @@ MonoBehaviour:
   startingLevel: 1
   canGainXP: 1
   upgradePoints: 0
-  startingHealth: 10
+  startingHealth: 100
   healthBonus: 0
   startingFuel: 100
   maxFuel: 100
