@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -53,8 +54,19 @@ public class HighScoreManager : MonoBehaviour
     /// </summary>
     public void SaveScore(string name)
     {
-        ScoreEntry playerScore = new ScoreEntry(playerName.text, GameStateHandler.current.fastScore);
-        scores.list.Add(playerScore);
+        ScoreEntry newScore = new ScoreEntry(playerName.text, GameStateHandler.current.fastScore);
+
+        // If score limit has been reached, remove the lowest score, then add the new score and sort.
+        if (scores.list.Count >= maxScores)
+        {
+            scores.list.RemoveAt(scores.list.Count - 1);
+            scores.list.Add(newScore);
+            scores.list.Sort();
+        } else
+        {
+            scores.list.Add(newScore);
+        }
+        
         string json = JsonUtility.ToJson(scores);
         PlayerPrefs.SetString("scoresList", json);
         PlayerPrefs.Save();
@@ -85,4 +97,15 @@ public class ScoreEntry
         name = n;
         score = s;
     }
+}
+
+[System.Serializable]
+public class ScoreEntryDisplay
+{
+    [Tooltip("The player position/rank display.")]
+    public TextMeshProUGUI rank;
+    [Tooltip("The player name display.")]
+    public TextMeshProUGUI name;
+    [Tooltip("The player score display.")]
+    public TextMeshProUGUI score;
 }
