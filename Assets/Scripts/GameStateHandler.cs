@@ -119,7 +119,7 @@ public class GameStateHandler : MonoBehaviour
         StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
     }
 
-    IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 4f)
+    IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 6f)
     {
         yield return new WaitForSecondsRealtime(time);
         // Show modifier name and score.
@@ -135,10 +135,24 @@ public class GameStateHandler : MonoBehaviour
         {
             Debug.Log("Showing next modifier.");
             StartCoroutine(ShowScoreModifiers(modifiers));
+            StartCoroutine(FadeOutScoreModifier(4));
+            StartCoroutine(FadeInScoreModifier(5));
         } else
         {
-            scoreModifier.GetComponent<Animator>().SetTrigger("FadeOut");
+            StartCoroutine(FadeOutScoreModifier(4));
         }
+    }
+
+    IEnumerator FadeInScoreModifier(float time = 2f)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        scoreModifier.GetComponent<Animator>().SetTrigger("FadeIn");
+    }
+
+    IEnumerator FadeOutScoreModifier(float time = 2f)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        scoreModifier.GetComponent<Animator>().SetTrigger("FadeOut");
     }
 
     public void ScoreScreen()
