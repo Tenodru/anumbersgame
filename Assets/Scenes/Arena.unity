@@ -3460,7 +3460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3301190930814160115, guid: 41b3c06fa1104464897fa5959ced4f8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartGame
+      value: PostScoreScreen
       objectReference: {fileID: 0}
     - target: {fileID: 3301190930814160115, guid: 41b3c06fa1104464897fa5959ced4f8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -5198,7 +5198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3301190930814160115, guid: 41b3c06fa1104464897fa5959ced4f8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartGame
+      value: PostScoreScreen
       objectReference: {fileID: 0}
     - target: {fileID: 3301190930814160115, guid: 41b3c06fa1104464897fa5959ced4f8d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

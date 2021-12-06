@@ -61,6 +61,7 @@ public class GameStateHandler : MonoBehaviour
         playerScore = 0;
         scoreScreen.SetActive(false);
         saveScoreScreen.SetActive(false);
+        postScoreScreen.SetActive(false);
         newScore = false;
     }
 
@@ -252,6 +253,7 @@ public class GameStateHandler : MonoBehaviour
         if (newScore)
         {
             saveScoreScreen.SetActive(true);
+            newScore = false;
         } else
         {
             postScoreScreen.SetActive(true);
