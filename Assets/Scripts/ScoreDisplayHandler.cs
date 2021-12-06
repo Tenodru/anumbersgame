@@ -17,6 +17,8 @@ public class ScoreDisplayHandler : MonoBehaviour
     public ScoreEntryDisplay score9;
     public ScoreEntryDisplay score10;
 
+    public List<ScoreEntryDisplay> scoreDisplays;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +35,6 @@ public class ScoreDisplayHandler : MonoBehaviour
 [System.Serializable]
 public class ScoreEntryDisplay
 {
-    [Tooltip("The element id. Corresponds to index in list.")]
-    public int id = 0;
     [Tooltip("The player position/rank display.")]
     public TextMeshProUGUI rank;
     [Tooltip("The player name display.")]

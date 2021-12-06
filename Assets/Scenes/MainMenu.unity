@@ -3704,53 +3704,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score1:
-    id: 0
     rank: {fileID: 236388407}
     name: {fileID: 886043866}
     score: {fileID: 320648511}
   score2:
-    id: 1
     rank: {fileID: 1195703353}
     name: {fileID: 1866661809}
     score: {fileID: 361278716}
   score3:
-    id: 2
     rank: {fileID: 1798723700}
     name: {fileID: 686980100}
     score: {fileID: 1189105948}
   score4:
-    id: 3
     rank: {fileID: 541941801}
     name: {fileID: 1419931384}
     score: {fileID: 795543106}
   score5:
-    id: 4
     rank: {fileID: 602509928}
     name: {fileID: 540068129}
     score: {fileID: 1540734386}
   score6:
-    id: 5
     rank: {fileID: 1896077456}
     name: {fileID: 1007557240}
     score: {fileID: 1820162569}
   score7:
-    id: 6
     rank: {fileID: 925713490}
     name: {fileID: 1780677606}
     score: {fileID: 1912959326}
   score8:
-    id: 7
     rank: {fileID: 1091549841}
     name: {fileID: 1041997176}
     score: {fileID: 759838965}
   score9:
-    id: 8
     rank: {fileID: 1740714269}
     name: {fileID: 345968576}
     score: {fileID: 590661886}
   score10:
-    id: 9
     rank: {fileID: 1742943567}
+    name: {fileID: 1731488846}
+    score: {fileID: 1745062739}
+  scoreDisplays:
+  - rank: {fileID: 236388407}
+    name: {fileID: 886043866}
+    score: {fileID: 320648511}
+  - rank: {fileID: 1195703353}
+    name: {fileID: 1866661809}
+    score: {fileID: 361278716}
+  - rank: {fileID: 1798723700}
+    name: {fileID: 686980100}
+    score: {fileID: 1189105948}
+  - rank: {fileID: 541941801}
+    name: {fileID: 1419931384}
+    score: {fileID: 795543106}
+  - rank: {fileID: 602509928}
+    name: {fileID: 540068129}
+    score: {fileID: 1540734386}
+  - rank: {fileID: 1896077456}
+    name: {fileID: 1007557240}
+    score: {fileID: 1820162569}
+  - rank: {fileID: 925713490}
+    name: {fileID: 1780677606}
+    score: {fileID: 1912959326}
+  - rank: {fileID: 1091549841}
+    name: {fileID: 1041997176}
+    score: {fileID: 759838965}
+  - rank: {fileID: 1740714269}
+    name: {fileID: 345968576}
+    score: {fileID: 590661886}
+  - rank: {fileID: 1742943567}
     name: {fileID: 1731488846}
     score: {fileID: 1745062739}
 --- !u!1 &1204551107

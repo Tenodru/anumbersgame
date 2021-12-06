@@ -49,7 +49,7 @@ public class HighScoreManager : MonoBehaviour
     public void LoadScores()
     {
         ReadScores();
-        foreach (ScoreEntry entry in scores.list)
+        for (int i = 0; i < scores.list.Count; i++)
         {
 
         }
