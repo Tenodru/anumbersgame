@@ -87,13 +87,14 @@ public class GameStateHandler : MonoBehaviour
 
     public void GameOver()
     {
-        PauseGame();
         displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.unscaledDeltaTime);
         if (!gameEnded)
         {
+            PauseGame();
             player.gameObject.SetActive(false);
             gameOverUI.SetActive(true);
             GameManager.current.elapsedTimeGame = currentTime;
+            gameEnded = true;
         }
     }
 
@@ -101,7 +102,7 @@ public class GameStateHandler : MonoBehaviour
     {
         scoreText.text = playerScore.ToString();
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
-        StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers));
+        StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
     }
 
     IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 3f)
@@ -126,7 +127,7 @@ public class GameStateHandler : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void RestartGame()
