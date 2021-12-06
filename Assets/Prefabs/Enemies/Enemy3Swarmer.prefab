@@ -217,7 +217,7 @@ MonoBehaviour:
   charVelocity: 2
   damage: 5
   projectileWeaknesses: 04000000
-  enemyXP: 14
+  enemyXP: 10
   healthCurrent: 0
   healthMax: 10
   scoreReward: 300
