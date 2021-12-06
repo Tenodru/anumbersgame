@@ -110,14 +110,3 @@ public class ScoreEntry
         score = s;
     }
 }
-
-[System.Serializable]
-public class ScoreEntryDisplay
-{
-    [Tooltip("The player position/rank display.")]
-    public TextMeshProUGUI rank;
-    [Tooltip("The player name display.")]
-    public TextMeshProUGUI name;
-    [Tooltip("The player score display.")]
-    public TextMeshProUGUI score;
-}
