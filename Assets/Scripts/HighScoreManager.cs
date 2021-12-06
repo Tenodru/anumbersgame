@@ -51,6 +51,10 @@ public class HighScoreManager : MonoBehaviour
         ReadScores();
         for (int i = 0; i < scores.list.Count; i++)
         {
+            ScoreDisplayHandler.current.scoreDisplays[i].rank.gameObject.SetActive(true);
+            ScoreDisplayHandler.current.scoreDisplays[i].name.gameObject.SetActive(true);
+            ScoreDisplayHandler.current.scoreDisplays[i].score.gameObject.SetActive(true);
+
             ScoreDisplayHandler.current.scoreDisplays[i].rank.text = (i + 1).ToString();
             ScoreDisplayHandler.current.scoreDisplays[i].name.text = scores.list[i].name;
             ScoreDisplayHandler.current.scoreDisplays[i].score.text = scores.list[i].score.ToString();
