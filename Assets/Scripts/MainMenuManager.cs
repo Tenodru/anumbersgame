@@ -39,6 +39,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenuScreen.SetActive(false);
         exitGameConfirmScreen.SetActive(false);
         highScoresScreen.SetActive(true);
+        HighScoreManager.current.LoadScores();
     }
 
     /// <summary>
