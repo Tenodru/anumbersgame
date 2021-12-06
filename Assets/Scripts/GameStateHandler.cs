@@ -69,6 +69,11 @@ public class GameStateHandler : MonoBehaviour
         {
             displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, moveTowardsDur * Time.deltaTime);
             UpdateScoreDisplay();
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                Player.current.GetComponent<Player>().playerStats.TakeDamage(100);
+            }
         }
     }
 
@@ -86,7 +91,7 @@ public class GameStateHandler : MonoBehaviour
     public void AddScore(int amount)
     {
         playerScore += amount;
-        moveTowardsDur = amount * 5;
+        moveTowardsDur = amount * 10;
     }
 
     public void UpdateScoreDisplay()
@@ -108,6 +113,7 @@ public class GameStateHandler : MonoBehaviour
             gameOverUI.SetActive(true);
             GameManager.current.elapsedTimeGame = currentTime;
             gameEnded = true;
+            StartCoroutine(FadeOutScoreModifier(0));
         }
     }
 
@@ -116,7 +122,8 @@ public class GameStateHandler : MonoBehaviour
         displayScore = playerScore;
         scoreText.text = displayScore.ToString();
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
-        StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
+        StartCoroutine(FadeInScoreModifier(0));
+        StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 1f));
     }
 
     IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 6f)

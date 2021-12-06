@@ -7,9 +7,15 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
+    public static Player current;
     public PlayerMovementController playerMoveControl;
     public PlayerWeaponController playerWeapControl;
     public PlayerStats playerStats;
+
+    private void Awake()
+    {
+        current = this;
+    }
 
     // Start is called before the first frame update
     void Start()
