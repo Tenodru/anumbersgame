@@ -104,6 +104,7 @@ MonoBehaviour:
   enemyXP: 10
   healthCurrent: 0
   healthMax: 5
+  scoreReward: 100
   enemyKilled:
     m_PersistentCalls:
       m_Calls: []

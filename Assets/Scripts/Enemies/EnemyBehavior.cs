@@ -22,6 +22,9 @@ public class EnemyBehavior : MonoBehaviour
     [Tooltip("The max health of this enemy.")]
     public float healthMax;
 
+    [Tooltip("The score rewarded by destroying this enemy.")]
+    public int scoreReward = 100;
+
     [Header("Events")]
     public UnityEvent enemyKilled;
 
@@ -88,6 +91,7 @@ public class EnemyBehavior : MonoBehaviour
             source.GetComponent<ProjectileNumber>().originPlayer.playerStats.GainXP(enemyXP);             // Reward player with XP.
             spawnManager.UpdateEnemyCount(-1);
             enemyKilled.Invoke();
+            GameStateHandler.current.AddScore(scoreReward);
             Destroy(gameObject);
             return;
         }
