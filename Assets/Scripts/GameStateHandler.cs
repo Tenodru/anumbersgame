@@ -31,6 +31,7 @@ public class GameStateHandler : MonoBehaviour
 
     bool addingScore = false;
     bool gameEnded = false;
+    bool scoreScreenOpen = false;
 
     // References
     Player player;
@@ -56,6 +57,12 @@ public class GameStateHandler : MonoBehaviour
         if (player.playerStats.GetCurrentHealth() <= 0)
         {
             GameOver();
+            if (scoreScreenOpen)
+            {
+                displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.unscaledDeltaTime);
+                Debug.Log("Updating final score display.");
+                UpdateFinalScoreDisplay();
+            }
         }
         else
         {
@@ -85,9 +92,13 @@ public class GameStateHandler : MonoBehaviour
         scoreTracker.text = "Score: " + displayScore;
     }
 
+    public void UpdateFinalScoreDisplay()
+    {
+        scoreText.text = displayScore.ToString();
+    }
+
     public void GameOver()
     {
-        displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.unscaledDeltaTime);
         if (!gameEnded)
         {
             PauseGame();
@@ -100,19 +111,23 @@ public class GameStateHandler : MonoBehaviour
 
     public void CalculateFinalScore()
     {
-        scoreText.text = playerScore.ToString();
+        displayScore = playerScore;
+        scoreText.text = displayScore.ToString();
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
         StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
     }
 
-    IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 3f)
+    IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 4f)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
         scoreModifier.text = modifiers[0].name + ": " + modifiers[0].score;
+        Debug.Log("Score step 1.");
         playerScore += modifiers[0].score;
+        Debug.Log("Score step 2.");
         modifiers.RemoveAt(0);
-        if (modifiers.Count >= 1)
+        if (modifiers.Count > 0)
         {
+            Debug.Log("Showing next modifier.");
             StartCoroutine(ShowScoreModifiers(modifiers));
         }
     }
@@ -120,6 +135,7 @@ public class GameStateHandler : MonoBehaviour
     public void ScoreScreen()
     {
         Debug.Log("Showing score screen.");
+        scoreScreenOpen = true;
         gameOverUI.SetActive(false);
         scoreScreen.SetActive(true);
         CalculateFinalScore();
