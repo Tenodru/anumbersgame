@@ -135,6 +135,9 @@ public class GameStateHandler : MonoBehaviour
         {
             Debug.Log("Showing next modifier.");
             StartCoroutine(ShowScoreModifiers(modifiers));
+        } else
+        {
+            scoreModifier.GetComponent<Animator>().SetTrigger("FadeOut");
         }
     }
 
