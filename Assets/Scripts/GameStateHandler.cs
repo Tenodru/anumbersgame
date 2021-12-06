@@ -15,6 +15,12 @@ public class GameStateHandler : MonoBehaviour
     public TextMeshProUGUI timeTracker;
     public TextMeshProUGUI scoreTracker;
 
+    [Header("Score Screen")]
+    public GameObject scoreScreen;
+    public TextMeshProUGUI scoreLabel;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreModifier;
+
     [Header("Game Over UI")]
     public GameObject gameOverUI;
 
@@ -40,6 +46,7 @@ public class GameStateHandler : MonoBehaviour
         player = FindObjectOfType<Player>();
         gameOverUI.SetActive(false);
         playerScore = 0;
+        scoreScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -79,12 +86,40 @@ public class GameStateHandler : MonoBehaviour
 
     public void GameOver()
     {
+        playerScore += currentTime * scoreMultiplier;
+        CalculateFinalScore();
+        //displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.deltaTime);
         PauseGame();
         player.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
-        playerScore += currentTime * scoreMultiplier;
-        displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.deltaTime);
-        UpdateScoreDisplay();
+    }
+
+    public void CalculateFinalScore()
+    {
+        scoreText.text = playerScore.ToString();
+        GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
+        StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers));
+    }
+
+    IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 3f)
+    {
+        yield return new WaitForSeconds(time);
+        scoreModifier.text = modifiers[0].name + ": " + modifiers[0].score;
+        modifiers.RemoveAt(0);
+        if (modifiers.Count >= 1)
+        {
+            StartCoroutine(ShowScoreModifiers(modifiers));
+        }
+    }
+
+    public void ScoreScreen()
+    {
+        scoreScreen.SetActive(true);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void RestartGame()

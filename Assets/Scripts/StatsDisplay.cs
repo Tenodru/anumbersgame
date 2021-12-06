@@ -226,6 +226,7 @@ public class StatsDisplay : MonoBehaviour
 
         healthBarWidth = healthDisplayBar.GetComponent<RectTransform>().sizeDelta.x;
         curMaxHealth = playerStats.GetMaxHealth();
+        UpdateMaxHealth();
 
         xpGainIndicatorPos = xpGainedIndicatorRef.transform.position;
         xpGainedIndicatorRef.SetActive(false);

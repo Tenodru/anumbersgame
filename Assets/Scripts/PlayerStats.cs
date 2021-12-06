@@ -60,6 +60,8 @@ public class PlayerStats : MonoBehaviour
         fuel = startingFuel;
         projSpeed = startingProjSpeed;
         damage = startingDamage;
+
+        statDisplay.UpdateHealthBar(startingHealth);
     }
 
     // Update is called once per frame

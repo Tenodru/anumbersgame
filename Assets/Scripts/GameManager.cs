@@ -8,6 +8,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager current;
+    public int difficulty = 1;
+
+    public List<ScoreModifier> scoreModifiers;
 
     [Tooltip("Time elapsed since game start.")]
     public float elapsedTime = 0;
@@ -38,5 +41,20 @@ public class GameManager : MonoBehaviour
     public void StartTime()
     {
         elapsedTime = Time.time;
+        scoreModifiers.Add(new ScoreModifier("Time"));
+        scoreModifiers.Add(new ScoreModifier("Difficulty", 2000));
+    }
+}
+
+[System.Serializable]
+public class ScoreModifier
+{
+    public string name;
+    public int score;
+
+    public ScoreModifier(string n, int s = 0)
+    {
+        name = n;
+        score = s;
     }
 }
