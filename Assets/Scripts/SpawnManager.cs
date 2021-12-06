@@ -90,6 +90,11 @@ public class SpawnManager : MonoBehaviour
 
         float respawnTimeScale = ((Time.time - GameManager.current.elapsedTime - GameManager.current.elapsedTimeGame) / 15);
 
+        if (respawnTimeScale > 20)
+        {
+            respawnTimeScale = 20;
+        }
+
         // Refill the spawn budget whenever the current enemy count reaches or drops below difficulty * 2, then spawn the next wave of enemies.
         if (currentEnemyCount <= difficulty * 2 * respawnTimeScale)
         {
