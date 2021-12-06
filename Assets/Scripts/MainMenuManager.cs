@@ -11,6 +11,9 @@ public class MainMenuManager : MonoBehaviour
     [Header("MainMenu Canvas References")]
     public GameObject mainMenuScreen;
 
+    [Header("HighScores Canvas References")]
+    public GameObject highScoresScreen;
+
     [Header("ExitGame Canvas References")]
     public GameObject exitGameConfirmScreen;
 
@@ -19,12 +22,23 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuScreen.SetActive(true);
         exitGameConfirmScreen.SetActive(false);
+        highScoresScreen.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    /// <summary>
+    /// Sends the player to the high scores screen.
+    /// </summary>
+    public void HighScores()
+    {
+        mainMenuScreen.SetActive(false);
+        exitGameConfirmScreen.SetActive(false);
+        highScoresScreen.SetActive(true);
     }
 
     /// <summary>
@@ -36,6 +50,9 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("Arena");
     }
 
+    /// <summary>
+    /// Sends the player to the quit confirmation screen.
+    /// </summary>
     public void ExitGame()
     {
         mainMenuScreen.SetActive(false);
@@ -51,5 +68,6 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuScreen.SetActive(true);
         exitGameConfirmScreen.SetActive(false);
+        highScoresScreen.SetActive(false);
     }
 }
