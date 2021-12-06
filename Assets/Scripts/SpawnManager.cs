@@ -72,14 +72,14 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         // Scale spawnTier with time. Raise spawnTier every [timeDivisor] seconds, to a max of 4.
-        currentTime = (int)(Time.time - GameManager.current.elapsedTime);
+        currentTime = (int)(Time.time - GameManager.current.elapsedTime - GameManager.current.elapsedTimeGame);
 
-        if (((Time.time - GameManager.current.elapsedTime) / timeDivisor) < 1)
+        if (((Time.time - GameManager.current.elapsedTime - GameManager.current.elapsedTimeGame) / timeDivisor) < 1)
             spawnTier = 1;
-        else if (((Time.time - GameManager.current.elapsedTime) / timeDivisor) >= 4)
+        else if (((Time.time - GameManager.current.elapsedTime - GameManager.current.elapsedTimeGame) / timeDivisor) >= 4)
             spawnTier = 4;
         else
-            spawnTier = (int)((Time.time - GameManager.current.elapsedTime) / timeDivisor) + 1;
+            spawnTier = (int)((Time.time - GameManager.current.elapsedTime - GameManager.current.elapsedTimeGame) / timeDivisor) + 1;
 
         // If spawnTier changed, recalculate tier spawn chances in SpawnReferences.
         if (spawnTier != lastTier)
@@ -91,7 +91,7 @@ public class SpawnManager : MonoBehaviour
         // Refill the spawn budget whenever the current enemy count reaches or drops below difficulty * 2, then spawn the next wave of enemies.
         if (currentEnemyCount <= difficulty * 2)
         {
-            timeSpawnScale = (int)((Time.time - GameManager.current.elapsedTime) / 10);
+            timeSpawnScale = (int)((Time.time - GameManager.current.elapsedTime - GameManager.current.elapsedTimeGame) / 10);
 
             if ((int)(((Mathf.Sqrt(wave)) / 2) * difficulty * timeSpawnScale) < 5)
                 spawnBudget = 5;

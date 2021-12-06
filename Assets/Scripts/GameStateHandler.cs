@@ -30,6 +30,7 @@ public class GameStateHandler : MonoBehaviour
     int displayScore;
 
     bool addingScore = false;
+    bool gameEnded = false;
 
     // References
     Player player;
@@ -69,7 +70,7 @@ public class GameStateHandler : MonoBehaviour
         {
             return;
         }
-        currentTime = (int)(Time.time - GameManager.current.elapsedTime);
+        currentTime = (int)(Time.time - GameManager.current.elapsedTime - GameManager.current.elapsedTimeGame);
         timeTracker.text = "Time: " + currentTime;
         lastTime = currentTime;
     }
@@ -86,12 +87,14 @@ public class GameStateHandler : MonoBehaviour
 
     public void GameOver()
     {
-        playerScore += currentTime * scoreMultiplier;
-        CalculateFinalScore();
-        //displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.deltaTime);
         PauseGame();
-        player.gameObject.SetActive(false);
-        gameOverUI.SetActive(true);
+        displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.unscaledDeltaTime);
+        if (!gameEnded)
+        {
+            player.gameObject.SetActive(false);
+            gameOverUI.SetActive(true);
+            GameManager.current.elapsedTimeGame = currentTime;
+        }
     }
 
     public void CalculateFinalScore()
@@ -105,6 +108,7 @@ public class GameStateHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         scoreModifier.text = modifiers[0].name + ": " + modifiers[0].score;
+        playerScore += modifiers[0].score;
         modifiers.RemoveAt(0);
         if (modifiers.Count >= 1)
         {
@@ -114,7 +118,10 @@ public class GameStateHandler : MonoBehaviour
 
     public void ScoreScreen()
     {
+        Debug.Log("Showing score screen.");
+        gameOverUI.SetActive(false);
         scoreScreen.SetActive(true);
+        CalculateFinalScore();
     }
 
     public void MainMenu()

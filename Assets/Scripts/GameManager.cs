@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
 
     public List<ScoreModifier> scoreModifiers;
 
-    [Tooltip("Time elapsed since game start.")]
+    [Tooltip("Time elapsed during start screen.")]
     public float elapsedTime = 0;
+    [Tooltip("Time elapsed during previous games.")]
+    public float elapsedTimeGame = 0;
 
     private void Awake()
     {
