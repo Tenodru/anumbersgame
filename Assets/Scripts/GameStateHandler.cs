@@ -27,7 +27,7 @@ public class GameStateHandler : MonoBehaviour
 
     [Header("Save Score Screen")]
     public GameObject saveScoreScreen;
-    public InputField playerName;
+    public TMP_InputField playerName;
 
     [Header("Game Over UI")]
     public GameObject gameOverUI;
