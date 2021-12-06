@@ -8453,7 +8453,7 @@ MonoBehaviour:
   baseFuelConsumption: 10
   fuelRefillMultiplier: 5
   fuelRefillDelay: 0.8
-  startingProjSpeed: 8
+  startingProjSpeed: 10
   projSpeed: 6
   startingDamage: 5
   damage: 5

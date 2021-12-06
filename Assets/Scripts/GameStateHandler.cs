@@ -135,6 +135,8 @@ public class GameStateHandler : MonoBehaviour
     /// </summary>
     public void CalculateFinalScore()
     {
+        GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
+
         fastScore = playerScore;
         displayScore = playerScore;
         scoreText.text = displayScore.ToString();
@@ -160,8 +162,6 @@ public class GameStateHandler : MonoBehaviour
             }
         }
         
-
-        GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
         StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
         StartCoroutine(FadeObjectIn(scoreModifier.gameObject));
     }
