@@ -75,7 +75,7 @@ public class HighScoreManager : MonoBehaviour
         string scoresListOld = PlayerPrefs.GetString("scoresList");
         Debug.Log("Scores: " + scoresListOld);
         scores = JsonUtility.FromJson<ScoresList>(scoresListOld);
-        scores.list.Sort((a, b)=>a.score.CompareTo(b.score));
+        scores.list.Sort((a, b)=>-a.score.CompareTo(b.score));
     }
 
     /// <summary>
