@@ -33,6 +33,8 @@ public class ScoreDisplayHandler : MonoBehaviour
 [System.Serializable]
 public class ScoreEntryDisplay
 {
+    [Tooltip("The element id. Corresponds to index in list.")]
+    public int id = 0;
     [Tooltip("The player position/rank display.")]
     public TextMeshProUGUI rank;
     [Tooltip("The player name display.")]

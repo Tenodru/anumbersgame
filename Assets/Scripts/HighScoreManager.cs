@@ -49,7 +49,10 @@ public class HighScoreManager : MonoBehaviour
     public void LoadScores()
     {
         ReadScores();
+        foreach (ScoreEntry entry in scores.list)
+        {
 
+        }
     }
 
     /// <summary>
