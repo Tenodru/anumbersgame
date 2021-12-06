@@ -81,9 +81,9 @@ public class HighScoreManager : MonoBehaviour
     /// <summary>
     /// Save a new score to the scores list.
     /// </summary>
-    public void SaveScore(string name)
+    public void SaveScore(string name, int score)
     {
-        ScoreEntry newScore = new ScoreEntry(name, GameStateHandler.current.fastScore);
+        ScoreEntry newScore = new ScoreEntry(name, score);
 
         // If score limit has been reached, remove the lowest score, then add the new score and sort.
         if (scores.list.Count >= maxScores)
@@ -99,7 +99,7 @@ public class HighScoreManager : MonoBehaviour
         string json = JsonUtility.ToJson(scores);
         PlayerPrefs.SetString("scoresList", json);
         PlayerPrefs.Save();
-        Debug.Log("Score of " + GameStateHandler.current.fastScore + " saved.");
+        Debug.Log("Score of " + score + " saved.");
     }
 }
 

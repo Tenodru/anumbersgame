@@ -74,7 +74,6 @@ public class GameStateHandler : MonoBehaviour
             if (scoreScreenOpen)
             {
                 displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, moveTowardsDur * Time.unscaledDeltaTime);
-                Debug.Log("Updating final score display.");
                 UpdateFinalScoreDisplay();
             }
         }
@@ -145,7 +144,7 @@ public class GameStateHandler : MonoBehaviour
         {
             fastScore += modifier.score;
         }
-
+        Debug.Log("Fastscore: " + fastScore);
         // Check if this score is higher than any of the other scores.
         if (HighScoreManager.scores.list.Count < 10)
         {
@@ -263,7 +262,7 @@ public class GameStateHandler : MonoBehaviour
 
     public void SaveScore()
     {
-        HighScoreManager.current.SaveScore(playerName.text);
+        HighScoreManager.current.SaveScore(playerName.text, fastScore);
         PostScoreScreen();
     }
 

@@ -75,7 +75,6 @@ public class StatsDisplay : MonoBehaviour
 
     public virtual void UpdateFuelBar(float barValue)
     {
-        Debug.Log("fuel value: " + barValue);
         fuelBar.value = barValue;
         fuelLevelLabel.text = playerStats.fuel.ToString();
     }
