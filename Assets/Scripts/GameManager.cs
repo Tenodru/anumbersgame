@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void StartTime()
     {
-        elapsedTime = Time.time;
+        elapsedTime = Time.time - elapsedTimeGame;
         scoreModifiers.Add(new ScoreModifier("Time"));
         scoreModifiers.Add(new ScoreModifier("Difficulty", 2000));
     }

@@ -147,7 +147,7 @@ public class GameStateHandler : MonoBehaviour
         }
 
         // Check if this score is higher than any of the other scores.
-        if (HighScoreManager.scores == null || HighScoreManager.scores.list.Count < 1)
+        if (HighScoreManager.scores.list.Count < 10)
         {
             newScore = true;
         } else
