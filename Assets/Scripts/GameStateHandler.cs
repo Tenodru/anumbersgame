@@ -21,11 +21,15 @@ public class GameStateHandler : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreModifier;
 
+    [Header("Save Score Screen")]
+    public GameObject saveScoreScreen;
+
     [Header("Game Over UI")]
     public GameObject gameOverUI;
 
     public int currentTime;
     public int playerScore;
+    int fastScore;
     int lastTime = 0;
     int displayScore;
     float moveTowardsDur = 1000f;
@@ -50,6 +54,7 @@ public class GameStateHandler : MonoBehaviour
         gameOverUI.SetActive(false);
         playerScore = 0;
         scoreScreen.SetActive(false);
+        saveScoreScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -120,8 +125,16 @@ public class GameStateHandler : MonoBehaviour
 
     public void CalculateFinalScore()
     {
+        fastScore = playerScore;
         displayScore = playerScore;
         scoreText.text = displayScore.ToString();
+
+        // Calculate full final score ahead of fancy animations.
+        foreach(ScoreModifier modifier in GameManager.current.scoreModifiers)
+        {
+            fastScore += modifier.score;
+        }
+
         GameManager.current.scoreModifiers[0].score = currentTime * scoreMultiplier;
         StartCoroutine(ShowScoreModifiers(GameManager.current.scoreModifiers, 0f));
         StartCoroutine(FadeObjectIn(scoreModifier.gameObject));
