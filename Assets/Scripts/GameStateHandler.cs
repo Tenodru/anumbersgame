@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class GameStateHandler : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class GameStateHandler : MonoBehaviour
 
     public int currentTime;
     public int playerScore;
+    int lastTime = 0;
+    int displayScore;
+
+    bool addingScore = false;
 
     // References
     Player player;
@@ -46,7 +51,8 @@ public class GameStateHandler : MonoBehaviour
         }
         else
         {
-            
+            displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.deltaTime);
+            UpdateScoreDisplay();
         }
     }
 
@@ -57,15 +63,18 @@ public class GameStateHandler : MonoBehaviour
             return;
         }
         currentTime = (int)(Time.time - GameManager.current.elapsedTime);
-        AddScore(scoreMultiplier * (currentTime - (playerScore / scoreMultiplier)));
-
         timeTracker.text = "Time: " + currentTime;
-        scoreTracker.text = "Score: " + playerScore;
+        lastTime = currentTime;
     }
 
-    public void AddScore(int amount = 0)
+    public void AddScore(int amount)
     {
-        playerScore = (int)Mathf.MoveTowards(playerScore, playerScore + amount, 100f * Time.deltaTime);
+        playerScore += amount;
+    }
+
+    public void UpdateScoreDisplay()
+    {
+        scoreTracker.text = "Score: " + displayScore;
     }
 
     public void GameOver()
@@ -73,6 +82,9 @@ public class GameStateHandler : MonoBehaviour
         PauseGame();
         player.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
+        playerScore += currentTime * scoreMultiplier;
+        displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.deltaTime);
+        UpdateScoreDisplay();
     }
 
     public void RestartGame()
