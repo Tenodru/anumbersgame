@@ -28,6 +28,7 @@ public class GameStateHandler : MonoBehaviour
     public int playerScore;
     int lastTime = 0;
     int displayScore;
+    float moveTowardsDur = 1000f;
 
     bool addingScore = false;
     bool gameEnded = false;
@@ -59,14 +60,14 @@ public class GameStateHandler : MonoBehaviour
             GameOver();
             if (scoreScreenOpen)
             {
-                displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.unscaledDeltaTime);
+                displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, moveTowardsDur * Time.unscaledDeltaTime);
                 Debug.Log("Updating final score display.");
                 UpdateFinalScoreDisplay();
             }
         }
         else
         {
-            displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, 1000f * Time.deltaTime);
+            displayScore = (int)Mathf.MoveTowards(displayScore, playerScore, moveTowardsDur * Time.deltaTime);
             UpdateScoreDisplay();
         }
     }
@@ -85,6 +86,7 @@ public class GameStateHandler : MonoBehaviour
     public void AddScore(int amount)
     {
         playerScore += amount;
+        moveTowardsDur = amount * 5;
     }
 
     public void UpdateScoreDisplay()
@@ -120,10 +122,14 @@ public class GameStateHandler : MonoBehaviour
     IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 4f)
     {
         yield return new WaitForSecondsRealtime(time);
+        // Show modifier name and score.
         scoreModifier.text = modifiers[0].name + ": " + modifiers[0].score;
-        Debug.Log("Score step 1.");
+        // Add modifier score to playerScore, and change moveTowardsDur.
         playerScore += modifiers[0].score;
-        Debug.Log("Score step 2.");
+        moveTowardsDur = modifiers[0].score * 5;
+
+        // Remove the modifier we just showed from the modifier list.
+        // Show the next modifier.
         modifiers.RemoveAt(0);
         if (modifiers.Count > 0)
         {
