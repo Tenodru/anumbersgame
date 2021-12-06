@@ -51,6 +51,7 @@ public class HighScoreManager : MonoBehaviour
         ReadScores();
         if (scores == null)
         {
+            scores = new ScoresList(new List<ScoreEntry>());
             return;
         }
         
@@ -81,7 +82,7 @@ public class HighScoreManager : MonoBehaviour
     /// </summary>
     public void SaveScore(string name)
     {
-        ScoreEntry newScore = new ScoreEntry(playerName.text, GameStateHandler.current.fastScore);
+        ScoreEntry newScore = new ScoreEntry(name, GameStateHandler.current.fastScore);
 
         // If score limit has been reached, remove the lowest score, then add the new score and sort.
         if (scores.list.Count >= maxScores)

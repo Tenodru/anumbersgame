@@ -147,7 +147,7 @@ public class GameStateHandler : MonoBehaviour
         }
 
         // Check if this score is higher than any of the other scores.
-        if (HighScoreManager.scores == null)
+        if (HighScoreManager.scores == null || HighScoreManager.scores.list.Count < 1)
         {
             newScore = true;
         } else
@@ -173,7 +173,7 @@ public class GameStateHandler : MonoBehaviour
     /// <param name="modifiers"></param>
     /// <param name="time"></param>
     /// <returns></returns>
-    IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 6f)
+    IEnumerator ShowScoreModifiers(List<ScoreModifier> modifiers, float time = 4f)
     {
         yield return new WaitForSecondsRealtime(time);
         // Show modifier name and score.
@@ -190,9 +190,9 @@ public class GameStateHandler : MonoBehaviour
             Debug.Log("Showing next modifier.");
             //StartCoroutine(FadeOutScoreModifier(4));
             //StartCoroutine(FadeInScoreModifier(5));
-            StartCoroutine(FadeObjectOut(scoreModifier.gameObject, waitTime: 5f));
+            StartCoroutine(FadeObjectOut(scoreModifier.gameObject, waitTime: 3f));
             StartCoroutine(ShowScoreModifiers(modifiers));
-            StartCoroutine(FadeObjectIn(scoreModifier.gameObject, waitTime: 6));
+            StartCoroutine(FadeObjectIn(scoreModifier.gameObject, waitTime: 4));
         } else
         {
             //StartCoroutine(FadeOutScoreModifier(4));
